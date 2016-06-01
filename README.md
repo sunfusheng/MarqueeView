@@ -1,8 +1,9 @@
 # MarqueeView
 
-### [实现参考简书文章]()
+俗名：垂直跑马灯  
+学名：垂直翻页公告
 
-### [APK下载地址]()
+### [APK下载地址](http://fir.im/MarqueeView)
 
 ### 微信公众号
 
