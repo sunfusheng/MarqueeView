@@ -6,7 +6,7 @@
 
 ### 微信公众号
 
-<img src="/screenshots/微信公众号.jpg" style="width: 30%;">
+<img src="https://github.com/sfsheng0322/StickyHeaderListView/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7.jpg" style="width: 30%;">
 
 ### 关于我
 
