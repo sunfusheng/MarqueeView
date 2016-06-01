@@ -25,7 +25,7 @@
         <com.sunfusheng.marqueeview.MarqueeView
             android:id="@+id/marqueeView4"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_loudspeaker4"
@@ -53,7 +53,7 @@
         <com.sunfusheng.marqueeview.MarqueeView
             android:id="@+id/marqueeView3"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_loudspeaker3"
@@ -81,7 +81,7 @@
         <com.sunfusheng.marqueeview.MarqueeView
             android:id="@+id/marqueeView2"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_loudspeaker2"
@@ -109,7 +109,7 @@
         <com.sunfusheng.marqueeview.MarqueeView
             android:id="@+id/marqueeView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_loudspeaker1"/>
