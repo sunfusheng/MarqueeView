@@ -16,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
     private MarqueeView marqueeView3;
     private MarqueeView marqueeView4;
 
-    private String KEY = "2725c35876b42c825c7d185f0052eca8d6a6cf82";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
