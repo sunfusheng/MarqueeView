@@ -8,9 +8,13 @@ import android.view.MenuItem;
 
 import com.sunfusheng.marqueeview.MarqueeView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    private MarqueeView marqueeView;
     private MarqueeView marqueeView1;
     private MarqueeView marqueeView2;
     private MarqueeView marqueeView3;
@@ -21,10 +25,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        marqueeView = (MarqueeView) findViewById(R.id.marqueeView);
         marqueeView1 = (MarqueeView) findViewById(R.id.marqueeView1);
         marqueeView2 = (MarqueeView) findViewById(R.id.marqueeView2);
         marqueeView3 = (MarqueeView) findViewById(R.id.marqueeView3);
         marqueeView4 = (MarqueeView) findViewById(R.id.marqueeView4);
+
+        List<String> info = new ArrayList<>();
+        info.add("1. 大家好，我是孙福生。");
+        info.add("2. 欢迎大家关注我哦！");
+        info.add("3. GitHub帐号：sfsheng0322");
+        info.add("4. 新浪微博：孙福生微博");
+        info.add("5. 个人博客：sunfusheng.com");
+        info.add("6. 微信公众号：孙福生");
+        marqueeView.startWithList(info);
 
         marqueeView1.startWithText(getString(R.string.marquee_texts));
         marqueeView2.startWithText(getString(R.string.marquee_texts));
