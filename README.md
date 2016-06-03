@@ -36,7 +36,7 @@
         app:mvTextColor="@color/white"
         app:mvTextSize="14sp"/>
 
-#### 代码中设置列表数据
+#### 设置列表数据
 
     MarqueeView marqueeView = (MarqueeView) findViewById(R.id.marqueeView);
 
@@ -49,7 +49,7 @@
     info.add("6. 微信公众号：孙福生");
     marqueeView.startWithList(info);
 
-#### 代码中设置长字符串数据
+#### 设置字符串数据
 
     String notice = "心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！";
     marqueeView.startWithText(notice);
