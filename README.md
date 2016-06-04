@@ -17,8 +17,8 @@
 
 | Attribute 属性          | Description 描述 |
 |:---				     |:---|
-| mvInterval         | 两行文字翻页时间间隔           |
 | mvAnimDuration         | 一行文字动画执行时间           |
+| mvInterval         | 两行文字翻页时间间隔           |
 | mvTextSize         | 文字大小           |
 | mvTextColor         | 文字颜色          |
 
@@ -28,9 +28,6 @@
         android:id="@+id/marqueeView"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         app:mvAnimDuration="1000"
         app:mvInterval="3000"
         app:mvTextColor="@color/white"
