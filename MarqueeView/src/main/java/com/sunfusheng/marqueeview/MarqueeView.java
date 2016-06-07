@@ -27,6 +27,9 @@ public class MarqueeView extends ViewFlipper {
     private int animDuration = 500;
     private int textSize = 14;
     private int textColor = 0xffffffff;
+    private int gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
+
+    private static final int TEXT_GRAVITY_LEFT = 0, TEXT_GRAVITY_CENTER = 1, TEXT_GRAVITY_RIGHT = 2;
 
     public MarqueeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,6 +51,15 @@ public class MarqueeView extends ViewFlipper {
             textSize = DisplayUtil.px2sp(mContext, textSize);
         }
         textColor = typedArray.getColor(R.styleable.MarqueeViewStyle_mvTextColor, textColor);
+        int gravityType = typedArray.getInt(R.styleable.MarqueeViewStyle_mvGravity, TEXT_GRAVITY_LEFT);
+        switch (gravityType) {
+            case TEXT_GRAVITY_CENTER:
+                gravity = Gravity.CENTER;
+                break;
+            case TEXT_GRAVITY_RIGHT:
+                gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
+                break;
+        }
         typedArray.recycle();
 
         setFlipInterval(interval);
@@ -83,7 +95,7 @@ public class MarqueeView extends ViewFlipper {
     private void startWithFixedWidth(String notice, int width) {
         int noticeLength = notice.length();
         int dpW = DisplayUtil.px2dip(mContext, width);
-        int limit = dpW/textSize;
+        int limit = dpW / textSize;
         if (dpW == 0) {
             throw new RuntimeException("Please set MarqueeView width !");
         }
@@ -91,10 +103,10 @@ public class MarqueeView extends ViewFlipper {
         if (noticeLength <= limit) {
             notices.add(notice);
         } else {
-            int size = noticeLength/limit + (noticeLength%limit != 0? 1:0);
-            for (int i=0; i<size; i++) {
-                int startIndex = i*limit;
-                int endIndex = ((i+1)*limit >= noticeLength? noticeLength:(i+1)*limit);
+            int size = noticeLength / limit + (noticeLength % limit != 0 ? 1 : 0);
+            for (int i = 0; i < size; i++) {
+                int startIndex = i * limit;
+                int endIndex = ((i + 1) * limit >= noticeLength ? noticeLength : (i + 1) * limit);
                 notices.add(notice.substring(startIndex, endIndex));
             }
         }
@@ -105,8 +117,8 @@ public class MarqueeView extends ViewFlipper {
     public boolean start() {
         if (notices == null || notices.size() == 0) return false;
         removeAllViews();
-        for (String notice:notices) {
-            addView(createTextView(notice));
+        for (int i = 0; i < notices.size(); i++) {
+            addView(createTextView(notices.get(i), i));
         }
         if (notices.size() > 1) {
             startFlipping();
@@ -115,13 +127,18 @@ public class MarqueeView extends ViewFlipper {
     }
 
     // 创建ViewFlipper下的TextView
-    private TextView createTextView(String text) {
+    private TextView createTextView(String text, int position) {
         TextView tv = new TextView(mContext);
-        tv.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+        tv.setGravity(gravity);
         tv.setText(text);
         tv.setTextColor(textColor);
         tv.setTextSize(textSize);
+        tv.setTag(position); // set position
         return tv;
+    }
+
+    public int getPosition() {
+        return (int) getCurrentView().getTag();
     }
 
     public List<String> getNotices() {
