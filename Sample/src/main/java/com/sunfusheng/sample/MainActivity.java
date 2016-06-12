@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sunfusheng.marqueeview.MarqueeView;
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
             @Override
-            public void onItemClick(int position, View view) {
-                Toast.makeText(getApplicationContext(), String.valueOf(position+1), Toast.LENGTH_SHORT).show();
+            public void onItemClick(int position, TextView textView) {
+                Toast.makeText(getApplicationContext(), textView.getText()+"", Toast.LENGTH_SHORT).show();
             }
         });
 
