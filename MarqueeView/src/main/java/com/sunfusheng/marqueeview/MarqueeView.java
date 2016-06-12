@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -22,6 +23,7 @@ public class MarqueeView extends ViewFlipper {
     private Context mContext;
     private List<String> notices;
     private boolean isSetAnimDuration = false;
+    private OnItemClickListener onItemClickListener;
 
     private int interval = 2000;
     private int animDuration = 500;
@@ -83,7 +85,7 @@ public class MarqueeView extends ViewFlipper {
     private void startWithFixedWidth(String notice, int width) {
         int noticeLength = notice.length();
         int dpW = DisplayUtil.px2dip(mContext, width);
-        int limit = dpW/textSize;
+        int limit = dpW / textSize;
         if (dpW == 0) {
             throw new RuntimeException("Please set MarqueeView width !");
         }
@@ -91,10 +93,10 @@ public class MarqueeView extends ViewFlipper {
         if (noticeLength <= limit) {
             notices.add(notice);
         } else {
-            int size = noticeLength/limit + (noticeLength%limit != 0? 1:0);
-            for (int i=0; i<size; i++) {
-                int startIndex = i*limit;
-                int endIndex = ((i+1)*limit >= noticeLength? noticeLength:(i+1)*limit);
+            int size = noticeLength / limit + (noticeLength % limit != 0 ? 1 : 0);
+            for (int i = 0; i < size; i++) {
+                int startIndex = i * limit;
+                int endIndex = ((i + 1) * limit >= noticeLength ? noticeLength : (i + 1) * limit);
                 notices.add(notice.substring(startIndex, endIndex));
             }
         }
@@ -105,9 +107,21 @@ public class MarqueeView extends ViewFlipper {
     public boolean start() {
         if (notices == null || notices.size() == 0) return false;
         removeAllViews();
-        for (String notice:notices) {
-            addView(createTextView(notice));
+
+        for (int i = 0; i < notices.size(); i++) {
+            final View view = createTextView(notices.get(i));
+            final int finalI = i;
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onItemClick(finalI, view);
+                    }
+                }
+            });
+            addView(view);
         }
+
         if (notices.size() > 1) {
             startFlipping();
         }
@@ -117,11 +131,15 @@ public class MarqueeView extends ViewFlipper {
     // 创建ViewFlipper下的TextView
     private TextView createTextView(String text) {
         TextView tv = new TextView(mContext);
-        tv.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+        tv.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         tv.setText(text);
         tv.setTextColor(textColor);
         tv.setTextSize(textSize);
         return tv;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     public List<String> getNotices() {
@@ -130,6 +148,10 @@ public class MarqueeView extends ViewFlipper {
 
     public void setNotices(List<String> notices) {
         this.notices = notices;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, View view);
     }
 
 }
