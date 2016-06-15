@@ -21,6 +21,7 @@
 | mvInterval         | 两行文字翻页时间间隔           |
 | mvTextSize         | 文字大小           |
 | mvTextColor         | 文字颜色          |
+| mvGravity         | 文字位置:left、center、right          |
 
 #### XML
 
@@ -51,6 +52,14 @@
     String notice = "心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！";
     marqueeView.startWithText(notice);
 
+#### 设置事件监听
+
+    marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+        @Override
+        public void onItemClick(int position, TextView textView) {
+            Toast.makeText(getApplicationContext(), String.valueOf(marqueeView1.getPosition()) + ". " + textView.getText(), Toast.LENGTH_SHORT).show();
+        }
+    });
 
 ### [APK下载地址](http://fir.im/MarqueeView)
 
