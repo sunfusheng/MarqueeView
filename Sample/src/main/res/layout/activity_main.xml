@@ -73,7 +73,8 @@
             android:layout_toRightOf="@+id/iv_loudspeaker3"
             app:mvAnimDuration="500"
             app:mvInterval="2000"
-            app:mvTextColor="@color/red"/>
+            app:mvTextColor="@color/red"
+            app:mvGravity="right"/>
     </RelativeLayout>
 
     <RelativeLayout

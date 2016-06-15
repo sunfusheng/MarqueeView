@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
         info.add("6. 微信公众号：孙福生");
         marqueeView.startWithList(info);
 
+        marqueeView1.startWithText(getString(R.string.marquee_texts));
+        marqueeView2.startWithText(getString(R.string.marquee_texts));
+        marqueeView3.startWithText(getString(R.string.marquee_texts));
+        marqueeView4.startWithText(getString(R.string.marquee_text));
+
         marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
             @Override
             public void onItemClick(int position, TextView textView) {
@@ -49,10 +54,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        marqueeView1.startWithText(getString(R.string.marquee_texts));
-        marqueeView2.startWithText(getString(R.string.marquee_texts));
-        marqueeView3.startWithText(getString(R.string.marquee_texts));
-        marqueeView4.startWithText(getString(R.string.marquee_text));
+        marqueeView1.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, TextView textView) {
+                Toast.makeText(getApplicationContext(), String.valueOf(marqueeView1.getPosition()) + ". " + textView.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
