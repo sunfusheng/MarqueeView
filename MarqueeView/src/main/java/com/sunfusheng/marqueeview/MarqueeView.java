@@ -2,13 +2,19 @@ package com.sunfusheng.marqueeview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -75,6 +81,7 @@ public class MarqueeView extends ViewFlipper {
         Animation animOut = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_out);
         if (isSetAnimDuration) animOut.setDuration(animDuration);
         setOutAnimation(animOut);
+
     }
 
     // 根据公告字符串启动轮播
@@ -95,16 +102,87 @@ public class MarqueeView extends ViewFlipper {
         start();
     }
 
+
+    // 根据公告字符串启动轮播
+    public void startWithListText(final List<String> notices) {
+        if (notices != null || notices.size() > 0) {
+            getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    startWithFixedWidth(notices, getWidth());
+                    getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                }
+            });
+        }
+    }
+
+    // 根据宽度和公告字符串启动轮播
+    private void startWithFixedWidth(List<String> texts, int width) {
+
+        for (String notice : texts) {
+            int noticeLength = notice.length();
+            float textWidth = getTextWidth(notice, textSize);
+            int dpW = DisplayUtil.px2dip(mContext, width);
+            int limit = dpW / textSize;
+            if (width == 0) {
+                throw new RuntimeException("Please set MarqueeView width !");
+            }
+            if (textWidth <= width) {
+                notices.add(notice);
+            } else {
+                int size = noticeLength / limit + (noticeLength % limit != 0 ? 1 : 0);
+                for (int i = 0; i < size; i++) {
+                    int startIndex = i * limit;
+                    int endIndex = ((i + 1) * limit >= noticeLength ? noticeLength : (i + 1) * limit);
+                    notices.add(notice.substring(startIndex, endIndex));
+                }
+            }
+
+        }
+        start();
+    }
+
+    /**
+     * 获取Text的宽度
+     *
+     * @param text
+     * @param size
+     * @return
+     */
+    private float getTextWidth(String text, float size) {
+        Paint paint = new Paint();
+        float scale = getContext().getResources().getDisplayMetrics().density;
+        float w;
+        if (scale == 1.0f) {
+            Paint textPaint = new Paint();
+            textPaint.set(paint);
+            textPaint.setTextSize(size);
+            w = textPaint.measureText(text);
+        } else {
+            TextView view = new TextView(getContext());
+            view.setText(text);
+            view.setTextSize(size);
+            view.measure(
+                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+            w = view.getWidth();
+        }
+        return w;
+    }
+
     // 根据宽度和公告字符串启动轮播
     private void startWithFixedWidth(String notice, int width) {
         int noticeLength = notice.length();
+        float textWidth = getTextWidth(notice, textSize);
         int dpW = DisplayUtil.px2dip(mContext, width);
         int limit = dpW / textSize;
-        if (dpW == 0) {
+        if (width == 0) {
             throw new RuntimeException("Please set MarqueeView width !");
         }
 
-        if (noticeLength <= limit) {
+        if (textWidth <= width) {
             notices.add(notice);
         } else {
             int size = noticeLength / limit + (noticeLength % limit != 0 ? 1 : 0);
@@ -116,6 +194,7 @@ public class MarqueeView extends ViewFlipper {
         }
         start();
     }
+
 
     // 启动轮播
     public boolean start() {
@@ -149,7 +228,9 @@ public class MarqueeView extends ViewFlipper {
         tv.setText(text);
         tv.setTextColor(textColor);
         tv.setTextSize(textSize);
-        tv.setSingleLine(singleLine);
+//        tv.setSingleLine(singleLine);
+        tv.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         tv.setTag(position);
         return tv;
     }
