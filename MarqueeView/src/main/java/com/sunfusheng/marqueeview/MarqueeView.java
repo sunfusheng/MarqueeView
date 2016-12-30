@@ -68,13 +68,13 @@ public class MarqueeView extends ViewFlipper {
 
         setFlipInterval(interval);
 
-        Animation animIn = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_in);
-        if (isSetAnimDuration) animIn.setDuration(animDuration);
-        setInAnimation(animIn);
-
-        Animation animOut = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_out);
-        if (isSetAnimDuration) animOut.setDuration(animDuration);
-        setOutAnimation(animOut);
+//        Animation animIn = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_in);
+//        if (isSetAnimDuration) animIn.setDuration(animDuration);
+//        setInAnimation(animIn);
+//
+//        Animation animOut = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_out);
+//        if (isSetAnimDuration) animOut.setDuration(animDuration);
+//        setOutAnimation(animOut);
     }
 
     // 根据公告字符串启动轮播
@@ -122,6 +122,8 @@ public class MarqueeView extends ViewFlipper {
         if (notices == null || notices.size() == 0) return false;
         removeAllViews();
 
+        resetAnimation();
+
         for (int i = 0; i < notices.size(); i++) {
             final TextView textView = createTextView(notices.get(i), i);
             final int finalI = i;
@@ -141,6 +143,19 @@ public class MarqueeView extends ViewFlipper {
         }
         return true;
     }
+
+    private void resetAnimation(){
+        clearAnimation();
+
+        Animation animIn = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_in);
+        if (isSetAnimDuration) animIn.setDuration(animDuration);
+        setInAnimation(animIn);
+
+        Animation animOut = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_out);
+        if (isSetAnimDuration) animOut.setDuration(animDuration);
+        setOutAnimation(animOut);
+    }
+
 
     // 创建ViewFlipper下的TextView
     private TextView createTextView(String text, int position) {
