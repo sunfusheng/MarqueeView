@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
         marqueeView4 = (MarqueeView) findViewById(R.id.marqueeView4);
 
         List<Spanned> info = new ArrayList<>();
-        info.add(Html.fromHtml(String.format("ddd :<font color=\"#666666\">%s asadf", "已售")));
-        info.add(Html.fromHtml("2北京市发布霾黄色预警，<font color='#ff0000'><small><small>外出携带好</small></small></font>口罩"));
-        info.add(Html.fromHtml("3北京市发布霾黄色预警，<font color='#ff0000'><small><small>外出携带好</small></small></font>口罩"));
+        info.add(Html.fromHtml(String.format("1、MarqueeView项目<font color=\"#ff5555\">%s 哦", "请关注")));
+        info.add(Html.fromHtml("2、孙福生微博，<font color='#000000'><small>请关注</small></font>哦"));
+        info.add(Html.fromHtml("3、sunfusheng.com，<font color='#ff5555'><small>请访问</small></font>哦"));
 
         marqueeView.startWithList(info);
 
