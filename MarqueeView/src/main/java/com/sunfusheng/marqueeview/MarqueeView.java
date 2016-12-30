@@ -21,7 +21,7 @@ import java.util.List;
 public class MarqueeView extends ViewFlipper {
 
     private Context mContext;
-    private List<String> notices;
+    private List<? extends CharSequence> notices;
     private boolean isSetAnimDuration = false;
     private OnItemClickListener onItemClickListener;
 
@@ -90,7 +90,7 @@ public class MarqueeView extends ViewFlipper {
     }
 
     // 根据公告字符串列表启动轮播
-    public void startWithList(List<String> notices) {
+    public void startWithList(List<? extends CharSequence> notices) {
         setNotices(notices);
         start();
     }
@@ -103,17 +103,18 @@ public class MarqueeView extends ViewFlipper {
         if (dpW == 0) {
             throw new RuntimeException("Please set MarqueeView width !");
         }
-
+        List list = new ArrayList();
         if (noticeLength <= limit) {
-            notices.add(notice);
+            list.add(notice);
         } else {
             int size = noticeLength / limit + (noticeLength % limit != 0 ? 1 : 0);
             for (int i = 0; i < size; i++) {
                 int startIndex = i * limit;
                 int endIndex = ((i + 1) * limit >= noticeLength ? noticeLength : (i + 1) * limit);
-                notices.add(notice.substring(startIndex, endIndex));
+                list.add(notice.substring(startIndex, endIndex));
             }
         }
+        notices.addAll(list);
         start();
     }
 
@@ -158,7 +159,7 @@ public class MarqueeView extends ViewFlipper {
 
 
     // 创建ViewFlipper下的TextView
-    private TextView createTextView(String text, int position) {
+    private TextView createTextView(CharSequence text, int position) {
         TextView tv = new TextView(mContext);
         tv.setGravity(gravity);
         tv.setText(text);
@@ -173,11 +174,11 @@ public class MarqueeView extends ViewFlipper {
         return (int) getCurrentView().getTag();
     }
 
-    public List<String> getNotices() {
+    public List<? extends CharSequence> getNotices() {
         return notices;
     }
 
-    public void setNotices(List<String> notices) {
+    public void setNotices(List<? extends CharSequence> notices) {
         this.notices = notices;
     }
 

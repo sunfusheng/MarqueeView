@@ -3,6 +3,8 @@ package com.sunfusheng.sample;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -33,13 +35,11 @@ public class MainActivity extends AppCompatActivity {
         marqueeView3 = (MarqueeView) findViewById(R.id.marqueeView3);
         marqueeView4 = (MarqueeView) findViewById(R.id.marqueeView4);
 
-        List<String> info = new ArrayList<>();
-        info.add("1. 大家好，我是孙福生。");
-        info.add("2. 欢迎大家关注我哦！");
-        info.add("3. GitHub帐号：sfsheng0322");
-        info.add("4. 新浪微博：孙福生微博");
-        info.add("5. 个人博客：sunfusheng.com");
-        info.add("6. 微信公众号：孙福生");
+        List<Spanned> info = new ArrayList<>();
+        info.add(Html.fromHtml(String.format("ddd :<font color=\"#666666\">%s asadf", "已售")));
+        info.add(Html.fromHtml("2北京市发布霾黄色预警，<font color='#ff0000'><small><small>外出携带好</small></small></font>口罩"));
+        info.add(Html.fromHtml("3北京市发布霾黄色预警，<font color='#ff0000'><small><small>外出携带好</small></small></font>口罩"));
+
         marqueeView.startWithList(info);
 
         marqueeView1.startWithText(getString(R.string.marquee_texts));
