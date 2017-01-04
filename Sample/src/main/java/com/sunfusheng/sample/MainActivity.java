@@ -1,6 +1,5 @@
 package com.sunfusheng.sample;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -72,7 +71,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_menu_app:
-                startActivity(new Intent(this, AboutActivity.class));
+//                startActivity(new Intent(this, AboutActivity.class));
+
+                List<Spanned> info = new ArrayList<>();
+                info.add(Html.fromHtml(String.format("1、MarqueeView项目<font color=\"#ff5555\">%s 哦", "请关注")));
+//                info.add(Html.fromHtml("2、孙福生微博，<font color='#000000'><small>请关注</small></font>哦"));
+//                info.add(Html.fromHtml("3、sunfusheng.com，<font color='#ff5555'><small>请访问</small></font>哦"));
+                marqueeView.startWithList(info);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

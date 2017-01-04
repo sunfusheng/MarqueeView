@@ -67,14 +67,6 @@ public class MarqueeView extends ViewFlipper {
         typedArray.recycle();
 
         setFlipInterval(interval);
-
-//        Animation animIn = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_in);
-//        if (isSetAnimDuration) animIn.setDuration(animDuration);
-//        setInAnimation(animIn);
-//
-//        Animation animOut = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_out);
-//        if (isSetAnimDuration) animOut.setDuration(animDuration);
-//        setOutAnimation(animOut);
     }
 
     // 根据公告字符串启动轮播
@@ -122,7 +114,6 @@ public class MarqueeView extends ViewFlipper {
     public boolean start() {
         if (notices == null || notices.size() == 0) return false;
         removeAllViews();
-
         resetAnimation();
 
         for (int i = 0; i < notices.size(); i++) {
@@ -141,6 +132,8 @@ public class MarqueeView extends ViewFlipper {
 
         if (notices.size() > 1) {
             startFlipping();
+        } else {
+            stopFlipping();
         }
         return true;
     }
@@ -156,7 +149,6 @@ public class MarqueeView extends ViewFlipper {
         if (isSetAnimDuration) animOut.setDuration(animDuration);
         setOutAnimation(animOut);
     }
-
 
     // 创建ViewFlipper下的TextView
     private TextView createTextView(CharSequence text, int position) {
