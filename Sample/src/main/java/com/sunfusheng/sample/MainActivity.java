@@ -1,9 +1,13 @@
 package com.sunfusheng.sample;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
+import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.URLSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -34,12 +38,18 @@ public class MainActivity extends AppCompatActivity {
         marqueeView3 = (MarqueeView) findViewById(R.id.marqueeView3);
         marqueeView4 = (MarqueeView) findViewById(R.id.marqueeView4);
 
-        List<Spanned> info = new ArrayList<>();
-        info.add(Html.fromHtml(String.format("1、MarqueeView项目<font color=\"#ff5555\">%s 哦", "请关注")));
-        info.add(Html.fromHtml("2、孙福生微博，<font color='#000000'><small>请关注</small></font>哦"));
-        info.add(Html.fromHtml("3、sunfusheng.com，<font color='#ff5555'><small>请访问</small></font>哦"));
-
-        marqueeView.startWithList(info);
+        List<CharSequence> list = new ArrayList<>();
+        SpannableString ss1 = new SpannableString("1、MarqueeView项目");
+        ss1.setSpan(new ForegroundColorSpan(Color.RED), 2, 13, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        list.add(ss1);
+        SpannableString ss2 = new SpannableString("2、GitHub：sfsheng0322");
+        ss2.setSpan(new ForegroundColorSpan(Color.GREEN), 9, 20, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        list.add(ss2);
+        SpannableString ss3 = new SpannableString("3、个人博客：sunfusheng.com");
+        ss3.setSpan(new URLSpan("http://sunfusheng.com/"), 7, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        list.add(ss3);
+        list.add("4、孙福生微博，请粉哦");
+        marqueeView.startWithList(list);
 
         marqueeView1.startWithText(getString(R.string.marquee_texts));
         marqueeView2.startWithText(getString(R.string.marquee_texts));
@@ -71,13 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_menu_app:
-//                startActivity(new Intent(this, AboutActivity.class));
-
-                List<Spanned> info = new ArrayList<>();
-                info.add(Html.fromHtml(String.format("1、MarqueeView项目<font color=\"#ff5555\">%s 哦", "请关注")));
-//                info.add(Html.fromHtml("2、孙福生微博，<font color='#000000'><small>请关注</small></font>哦"));
-//                info.add(Html.fromHtml("3、sunfusheng.com，<font color='#ff5555'><small>请访问</small></font>哦"));
-                marqueeView.startWithList(info);
+                startActivity(new Intent(this, AboutActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
