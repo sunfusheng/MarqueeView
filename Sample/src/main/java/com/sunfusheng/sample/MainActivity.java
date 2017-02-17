@@ -1,8 +1,13 @@
 package com.sunfusheng.sample;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.URLSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -33,14 +38,18 @@ public class MainActivity extends AppCompatActivity {
         marqueeView3 = (MarqueeView) findViewById(R.id.marqueeView3);
         marqueeView4 = (MarqueeView) findViewById(R.id.marqueeView4);
 
-        List<String> info = new ArrayList<>();
-        info.add("1. 大家好，我是孙福生。");
-        info.add("2. 欢迎大家关注我哦！");
-        info.add("3. GitHub帐号：sfsheng0322");
-        info.add("4. 新浪微博：孙福生微博");
-        info.add("5. 个人博客：sunfusheng.com");
-        info.add("6. 微信公众号：孙福生");
-        marqueeView.startWithList(info);
+        List<CharSequence> list = new ArrayList<>();
+        SpannableString ss1 = new SpannableString("1、MarqueeView项目");
+        ss1.setSpan(new ForegroundColorSpan(Color.RED), 2, 13, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        list.add(ss1);
+        SpannableString ss2 = new SpannableString("2、GitHub：sfsheng0322");
+        ss2.setSpan(new ForegroundColorSpan(Color.GREEN), 9, 20, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        list.add(ss2);
+        SpannableString ss3 = new SpannableString("3、个人博客：sunfusheng.com");
+        ss3.setSpan(new URLSpan("http://sunfusheng.com/"), 7, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        list.add(ss3);
+        list.add("4、孙福生微博，请粉哦");
+        marqueeView.startWithList(list);
 
         marqueeView1.startWithText(getString(R.string.marquee_texts));
         marqueeView2.startWithText(getString(R.string.marquee_texts));
