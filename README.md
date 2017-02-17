@@ -63,6 +63,23 @@
         }
     });
 
+#### 重影问题可参考以下解决方案
+
+    @Override
+    public void onStart() {
+        super.onStart(); 
+        ...
+        marqueeView.startFlipping();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        marqueeView.stopFlipping();
+        ...
+    }
+    
+    
 ### [APK下载地址](http://fir.im/MarqueeView)
 
 ### 微信公众号
