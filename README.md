@@ -68,7 +68,6 @@
     @Override
     public void onStart() {
         super.onStart(); 
-        ...
         marqueeView.startFlipping();
     }
 
@@ -76,7 +75,6 @@
     public void onStop() {
         super.onStop();
         marqueeView.stopFlipping();
-        ...
     }
     
     
