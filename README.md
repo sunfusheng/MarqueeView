@@ -1,4 +1,4 @@
-# MarqueeView
+# MarqueeView (V1.2.0)
 
 俗名：垂直跑马灯  
 学名：垂直翻页公告
@@ -11,7 +11,7 @@
 
 #### Gradle:
 
-    compile 'com.sunfusheng:marqueeview:1.1.0'
+    compile 'com.sunfusheng:marqueeview:1.2.0'
 
 #### 属性
 
