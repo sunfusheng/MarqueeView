@@ -1,4 +1,4 @@
-# MarqueeView (V1.2.0)
+# MarqueeView  [ ![Download](https://api.bintray.com/packages/sfsheng0322/maven/marqueeview/images/download.svg?version=1.2.0) ](https://bintray.com/sfsheng0322/maven/marqueeview/1.2.0/link)
 
 俗名：垂直跑马灯  
 学名：垂直翻页公告
