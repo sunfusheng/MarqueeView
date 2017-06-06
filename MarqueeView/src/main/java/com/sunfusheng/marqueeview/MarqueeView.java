@@ -138,7 +138,7 @@ public class MarqueeView extends ViewFlipper {
         return true;
     }
 
-    private void resetAnimation(){
+    private void resetAnimation() {
         clearAnimation();
 
         Animation animIn = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_in);
