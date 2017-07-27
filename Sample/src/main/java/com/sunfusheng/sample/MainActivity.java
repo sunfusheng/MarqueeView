@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         ss3.setSpan(new URLSpan("http://sunfusheng.com/"), 7, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         list.add(ss3);
         list.add("4、孙福生微博，请粉哦");
+        //设置动画方向
+
         marqueeView.startWithList(list);
 
         marqueeView1.startWithText(getString(R.string.marquee_texts));
