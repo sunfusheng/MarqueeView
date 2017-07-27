@@ -185,7 +185,7 @@ public class MarqueeView extends ViewFlipper {
     public interface OnItemClickListener {
         void onItemClick(int position, TextView textView);
     }
-
+   
     public void setAnimationInAndOut(int animInId, int animOutID){
         animIn = AnimationUtils.loadAnimation(getContext(), animInId);
         animOut = AnimationUtils.loadAnimation(getContext(), animOutID);
