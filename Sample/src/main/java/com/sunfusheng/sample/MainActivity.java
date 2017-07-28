@@ -50,18 +50,24 @@ public class MainActivity extends AppCompatActivity {
         list.add(ss3);
         list.add("4、孙福生微博，请粉哦");
         //设置动画方向
-
         marqueeView.startWithList(list);
+        marqueeView.setAnimationInAndOut(R.anim.left_in, R.anim.right_out);
 
         marqueeView1.startWithText(getString(R.string.marquee_texts));
+        marqueeView1.setAnimationInAndOut(R.anim.right_in, R.anim.left_out);
+
         marqueeView2.startWithText(getString(R.string.marquee_texts));
+        marqueeView2.setAnimationInAndOut(R.anim.bottom_in, R.anim.top_out);
+
         marqueeView3.startWithText(getString(R.string.marquee_texts));
+        marqueeView3.setAnimationInAndOut(R.anim.top_in, R.anim.bottom_out);
+
         marqueeView4.startWithText(getString(R.string.marquee_text));
 
         marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
             @Override
             public void onItemClick(int position, TextView textView) {
-                Toast.makeText(getApplicationContext(), textView.getText()+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), textView.getText() + "", Toast.LENGTH_SHORT).show();
             }
         });
 
