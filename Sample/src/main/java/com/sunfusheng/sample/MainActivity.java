@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         list.add("4、孙福生微博，请粉哦");
         //设置动画方向
         marqueeView.startWithList(list);
-        marqueeView.setAnimationInAndOut(R.anim.left_in, R.anim.right_out);
+        marqueeView.setAnimationInAndOut(R.anim.right_in, R.anim.left_out);
 
         marqueeView1.startWithText(getString(R.string.marquee_texts));
         marqueeView1.setAnimationInAndOut(R.anim.right_in, R.anim.left_out);
