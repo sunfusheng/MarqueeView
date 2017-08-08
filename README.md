@@ -1,7 +1,7 @@
-# MarqueeView  [ ![Download](https://api.bintray.com/packages/sfsheng0322/maven/marqueeview/images/download.svg?version=1.2.0) ](https://bintray.com/sfsheng0322/maven/marqueeview/1.2.0/link)
+# MarqueeView  [ ![Download](https://api.bintray.com/packages/sfsheng0322/maven/marqueeview/images/download.svg?version=1.3.0) ](https://bintray.com/sfsheng0322/maven/marqueeview/1.3.0/link)
 
-俗名：垂直跑马灯  
-学名：垂直翻页公告
+俗名：可垂直可水平跑马灯  
+学名：可垂直可水平翻页公告
 
 ### 效果图
 
@@ -9,9 +9,18 @@
 
 ### 使用
 
+#### Maven:
+
+    <dependency>
+      <groupId>com.sunfusheng</groupId>
+      <artifactId>marqueeview</artifactId>
+      <version>1.3.0</version>
+      <type>pom</type>
+    </dependency>
+
 #### Gradle:
 
-    compile 'com.sunfusheng:marqueeview:1.2.0'
+    compile 'com.sunfusheng:marqueeview:1.3.0'
 
 #### 属性
 
@@ -23,6 +32,7 @@
 | mvTextColor         | 文字颜色 | 
 | mvGravity         | 文字位置:left、center、right | 
 | mvSingleLine         | 单行设置 |
+| mvDirection        | 动画滚动方向:bottom_to_top、top_to_bottom、right_to_left、left_to_right | 
 
 #### XML
 
@@ -31,12 +41,13 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         app:mvAnimDuration="1000"
+        app:mvDirection="bottom_to_top"
         app:mvInterval="3000"
         app:mvTextColor="@color/white"
         app:mvTextSize="14sp"
         app:mvSingleLine="true"/>
 
-#### 设置列表数据
+#### 设置字符串列表数据
 
     MarqueeView marqueeView = (MarqueeView) findViewById(R.id.marqueeView);
 
@@ -48,11 +59,17 @@
     info.add("5. 个人博客：sunfusheng.com");
     info.add("6. 微信公众号：孙福生");
     marqueeView.startWithList(info);
+    
+    // 在代码里设置自己的动画
+    marqueeView.startWithList(info, R.anim.anim_bottom_in, R.anim.anim_top_out);
 
 #### 设置字符串数据
 
     String notice = "心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！";
     marqueeView.startWithText(notice);
+    
+    // 在代码里设置自己的动画
+    marqueeView.startWithText(notice, R.anim.anim_bottom_in, R.anim.anim_top_out);
 
 #### 设置事件监听
 
