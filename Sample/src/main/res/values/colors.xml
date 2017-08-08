@@ -5,12 +5,18 @@
     <color name="colorPrimaryDark">#ff5555</color>
     <color name="colorAccent">#ff5555</color>
 
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="red">#ff5555</color>
-    <color name="blue">#5677fc</color>
+    <color name="white">#FFFFFF</color>  <!-- 白色 -->
+    <color name="yellow">#FFFF00</color> <!-- 黄色 -->
+    <color name="gold">#FFD700</color>   <!-- 金色 -->
+    <color name="orange">#FFA500</color> <!-- 橙色 -->
+    <color name="red">#ff5555</color>    <!-- 红色 -->
+    <color name="gray">#808080</color>   <!-- 灰色 -->
+    <color name="green">#008000</color>  <!-- 绿色 -->
+    <color name="blue">#455ede</color>   <!-- 蓝色 -->
+    <color name="black">#000000</color>  <!-- 黑色 -->
 
     <color name="transparent">#00000000</color>
     <color name="half_transparent">#4f000000</color>
+    <color name="half_transparent_white">#80ffffff</color>
 
 </resources>

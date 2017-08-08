@@ -3,14 +3,15 @@ apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.2"
+        versionCode 4
+        versionName "1.3"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,7 +29,7 @@ publish {
     userOrg = 'sfsheng0322'
     groupId = 'com.sunfusheng'
     artifactId = 'marqueeview'
-    publishVersion = '1.2.0'
-    desc = 'A custom view for vertical flip announcement.'
+    publishVersion = '1.3.0'
+    desc = 'A custom view for vertical or horizontal flip announcement.'
     website = 'https://github.com/sfsheng0322/MarqueeView'
 }

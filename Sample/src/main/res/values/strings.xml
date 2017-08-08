@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">MarqueeView</string>
-    <string name="marquee_text">心中有阳光，脚底有力量！</string>
-    <string name="marquee_texts">心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！</string>
+    <string name="marquee_text">心中有阳光，脚底有力量。</string>
+    <string name="marquee_texts">心中有阳光，脚底有力量。心中有阳光，脚底有力量。心中有阳光，脚底有力量。心中有阳光，脚底有力量。</string>
 </resources>

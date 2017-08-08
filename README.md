@@ -15,14 +15,14 @@
 
 #### 属性
 
-| Attribute 属性          | Description 描述 |
-|:---				     |:---|
-| mvAnimDuration         | 一行文字动画执行时间           |
-| mvInterval         | 两行文字翻页时间间隔           |
-| mvTextSize         | 文字大小           |
-| mvTextColor         | 文字颜色          |
-| mvGravity         | 文字位置:left、center、right          |
-| mvSingleLine         | 单行设置          |
+| Attribute 属性          | Description 描述 | 
+|:---				     |:---| 
+| mvAnimDuration         | 一行文字动画执行时间 | 
+| mvInterval         | 两行文字翻页时间间隔 | 
+| mvTextSize         | 文字大小 | 
+| mvTextColor         | 文字颜色 | 
+| mvGravity         | 文字位置:left、center、right | 
+| mvSingleLine         | 单行设置 |
 
 #### XML
 

@@ -2,6 +2,8 @@ package com.sunfusheng.marqueeview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
+import android.support.annotation.AnimRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -20,8 +22,7 @@ import java.util.List;
  */
 public class MarqueeView extends ViewFlipper {
 
-    private Context mContext;
-    private List<? extends CharSequence> notices;
+    private List<? extends CharSequence> notices = new ArrayList<>();
     private boolean isSetAnimDuration = false;
     private OnItemClickListener onItemClickListener;
 
@@ -30,13 +31,13 @@ public class MarqueeView extends ViewFlipper {
     private int textSize = 14;
     private int textColor = 0xffffffff;
 
-    private Animation animIn, animOut;//进出动画
-//    private int animInRes = R.anim.bottom_in;
-//    private int animOutRes = R.anim.top_out;
-
     private boolean singleLine = false;
     private int gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
-    private static final int TEXT_GRAVITY_LEFT = 0, TEXT_GRAVITY_CENTER = 1, TEXT_GRAVITY_RIGHT = 2;
+    private static final int TEXT_GRAVITY_LEFT = 0;
+    private static final int TEXT_GRAVITY_CENTER = 1;
+    private static final int TEXT_GRAVITY_RIGHT = 2;
+
+    private TextView[] textViews = new TextView[3];
 
     public MarqueeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -44,19 +45,14 @@ public class MarqueeView extends ViewFlipper {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        this.mContext = context;
-        if (notices == null) {
-            notices = new ArrayList<>();
-        }
-
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MarqueeViewStyle, defStyleAttr, 0);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MarqueeViewStyle, defStyleAttr, 0);
         interval = typedArray.getInteger(R.styleable.MarqueeViewStyle_mvInterval, interval);
         isSetAnimDuration = typedArray.hasValue(R.styleable.MarqueeViewStyle_mvAnimDuration);
-        singleLine = typedArray.getBoolean(R.styleable.MarqueeViewStyle_mvSingleLine, false);
         animDuration = typedArray.getInteger(R.styleable.MarqueeViewStyle_mvAnimDuration, animDuration);
+        singleLine = typedArray.getBoolean(R.styleable.MarqueeViewStyle_mvSingleLine, false);
         if (typedArray.hasValue(R.styleable.MarqueeViewStyle_mvTextSize)) {
             textSize = (int) typedArray.getDimension(R.styleable.MarqueeViewStyle_mvTextSize, textSize);
-            textSize = DisplayUtil.px2sp(mContext, textSize);
+            textSize = Utils.px2sp(context, textSize);
         }
         textColor = typedArray.getColor(R.styleable.MarqueeViewStyle_mvTextColor, textColor);
         int gravityType = typedArray.getInt(R.styleable.MarqueeViewStyle_mvGravity, TEXT_GRAVITY_LEFT);
@@ -69,37 +65,55 @@ public class MarqueeView extends ViewFlipper {
                 break;
         }
         typedArray.recycle();
-
         setFlipInterval(interval);
     }
 
-    // 根据公告字符串启动轮播
-    public void startWithText(final String notice) {
+    /**
+     * 根据字符串，启动翻页公告
+     *
+     * @param notice 字符串
+     */
+    public void startWithText(String notice) {
+        startWithText(notice, R.anim.anim_bottom_in, R.anim.anim_top_out);
+    }
+
+    /**
+     * 根据字符串，启动翻页公告
+     *
+     * @param notice       字符串
+     * @param inAnimResId  进入动画的resID
+     * @param outAnimResID 离开动画的resID
+     */
+    @SuppressWarnings("deprecation")
+    public void startWithText(final String notice, final @AnimRes int inAnimResId, final @AnimRes int outAnimResID) {
         if (TextUtils.isEmpty(notice)) return;
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                startWithFixedWidth(notice, getWidth());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+                startWithFixedWidth(notice, inAnimResId, outAnimResID);
             }
         });
     }
 
-    // 根据公告字符串列表启动轮播
-    public void startWithList(List<? extends CharSequence> notices) {
-        setNotices(notices);
-        start();
-    }
-
-    // 根据宽度和公告字符串启动轮播
-    private void startWithFixedWidth(String notice, int width) {
+    /**
+     * 根据字符串和宽度，启动翻页公告
+     *
+     * @param notice 字符串
+     */
+    private void startWithFixedWidth(String notice, @AnimRes int inAnimResId, @AnimRes int outAnimResID) {
         int noticeLength = notice.length();
-        int dpW = DisplayUtil.px2dip(mContext, width);
-        int limit = dpW / textSize;
-        if (dpW == 0) {
-            throw new RuntimeException("Please set MarqueeView width !");
+        int width = Utils.px2dip(getContext(), getWidth());
+        if (width == 0) {
+            throw new RuntimeException("Please set the width of MarqueeView !");
         }
+        int limit = width / textSize;
         List list = new ArrayList();
+
         if (noticeLength <= limit) {
             list.add(notice);
         } else {
@@ -110,15 +124,37 @@ public class MarqueeView extends ViewFlipper {
                 list.add(notice.substring(startIndex, endIndex));
             }
         }
+
+        if (notices == null) notices = new ArrayList<>();
+        notices.clear();
         notices.addAll(list);
-        start();
+        start(inAnimResId, outAnimResID);
     }
 
-    // 启动轮播
-    public boolean start() {
-        if (notices == null || notices.size() == 0) return false;
+    /**
+     * 根据字符串列表，启动翻页公告
+     *
+     * @param notices 字符串列表
+     */
+    public void startWithList(List<? extends CharSequence> notices) {
+        startWithList(notices, R.anim.anim_bottom_in, R.anim.anim_top_out);
+    }
+
+    /**
+     * 根据字符串列表，启动翻页公告
+     *
+     * @param notices      字符串列表
+     * @param inAnimResId  进入动画的resID
+     * @param outAnimResID 离开动画的resID
+     */
+    public void startWithList(List<? extends CharSequence> notices, @AnimRes int inAnimResId, @AnimRes int outAnimResID) {
+        if (Utils.isEmpty(notices)) return;
+        setNotices(notices);
+        start(inAnimResId, outAnimResID);
+    }
+
+    private boolean start(@AnimRes int inAnimResId, @AnimRes int outAnimResID) {
         removeAllViews();
-        resetAnimation();
 
         for (int i = 0; i < notices.size(); i++) {
             final TextView textView = createTextView(notices.get(i), i);
@@ -134,36 +170,29 @@ public class MarqueeView extends ViewFlipper {
             addView(textView);
         }
 
+        clearAnimation();
         if (notices.size() > 1) {
+            setInAndOutAnimation(inAnimResId, outAnimResID);
             startFlipping();
-        } else {
-            stopFlipping();
         }
         return true;
     }
 
-    private void resetAnimation() {
-        clearAnimation();
-
-        Animation animIn = AnimationUtils.loadAnimation(mContext, R.anim.bottom_in);
-        if (isSetAnimDuration) animIn.setDuration(animDuration);
-        setInAnimation(animIn);
-
-        Animation animOut = AnimationUtils.loadAnimation(mContext, R.anim.top_out);
-        if (isSetAnimDuration) animOut.setDuration(animDuration);
-        setOutAnimation(animOut);
-    }
-
-    // 创建ViewFlipper下的TextView
     private TextView createTextView(CharSequence text, int position) {
-        TextView tv = new TextView(mContext);
-        tv.setGravity(gravity);
-        tv.setText(text);
-        tv.setTextColor(textColor);
-        tv.setTextSize(textSize);
-        tv.setSingleLine(singleLine);
-        tv.setTag(position);
-        return tv;
+        TextView textView = textViews[position % 3];
+        if (textView == null) {
+            textView = new TextView(getContext());
+            textView.setGravity(gravity);
+            textView.setTextColor(textColor);
+            textView.setTextSize(textSize);
+            textView.setSingleLine(singleLine);
+            textViews[position % 3] = textView;
+        } else {
+            removeView(textView);
+        }
+        textView.setText(text);
+        textView.setTag(position);
+        return textView;
     }
 
     public int getPosition() {
@@ -186,13 +215,20 @@ public class MarqueeView extends ViewFlipper {
         void onItemClick(int position, TextView textView);
     }
 
-    public void setAnimationInAndOut(int animInId, int animOutID){
-        animIn = AnimationUtils.loadAnimation(getContext(), animInId);
-        animOut = AnimationUtils.loadAnimation(getContext(), animOutID);
-        animIn.setDuration(animDuration);
-        animOut.setDuration(animDuration);
-        setInAnimation(animIn);
-        setOutAnimation(animOut);
+    /**
+     * 设置进入动画和离开动画
+     *
+     * @param inAnimResId  进入动画的resID
+     * @param outAnimResID 离开动画的resID
+     */
+    private void setInAndOutAnimation(@AnimRes int inAnimResId, @AnimRes int outAnimResID) {
+        Animation inAnim = AnimationUtils.loadAnimation(getContext(), inAnimResId);
+        if (isSetAnimDuration) inAnim.setDuration(animDuration);
+        setInAnimation(inAnim);
+
+        Animation outAnim = AnimationUtils.loadAnimation(getContext(), outAnimResID);
+        if (isSetAnimDuration) outAnim.setDuration(animDuration);
+        setOutAnimation(outAnim);
     }
 
 }

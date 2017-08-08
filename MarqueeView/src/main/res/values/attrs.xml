@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <declare-styleable name="MarqueeViewStyle">
         <attr name="mvInterval" format="integer|reference"/>
         <attr name="mvAnimDuration" format="integer|reference"/>
@@ -13,5 +12,4 @@
             <enum name="right" value="2"/>
         </attr>
     </declare-styleable>
-
 </resources>
