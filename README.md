@@ -5,7 +5,7 @@
 
 ### 效果图
 
-<img src="/screenshot/MarqueeView_Gif.gif" style="width: 30%;">
+<img src="/screenshot/MarqueeView.gif" style="width: 30%;">
 
 ### 使用
 

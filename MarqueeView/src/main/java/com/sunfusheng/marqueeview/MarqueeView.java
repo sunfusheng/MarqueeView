@@ -22,22 +22,33 @@ import java.util.List;
  */
 public class MarqueeView extends ViewFlipper {
 
-    private List<? extends CharSequence> notices = new ArrayList<>();
-    private boolean isSetAnimDuration = false;
-    private OnItemClickListener onItemClickListener;
-
-    private int interval = 2000;
-    private int animDuration = 500;
+    private int interval = 3000;
+    private boolean hasSetAnimDuration = false;
+    private int animDuration = 1000;
     private int textSize = 14;
     private int textColor = 0xffffffff;
-
     private boolean singleLine = false;
+
     private int gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
     private static final int GRAVITY_LEFT = 0;
     private static final int GRAVITY_CENTER = 1;
     private static final int GRAVITY_RIGHT = 2;
 
+    private boolean hasSetDirection = false;
+    private int direction = DIRECTION_BOTTOM_TO_TOP;
+    private static final int DIRECTION_BOTTOM_TO_TOP = 0;
+    private static final int DIRECTION_TOP_TO_BOTTOM = 1;
+    private static final int DIRECTION_RIGHT_TO_LEFT = 2;
+    private static final int DIRECTION_LEFT_TO_RIGHT = 3;
+
+    @AnimRes
+    private int inAnimResId = R.anim.anim_bottom_in;
+    @AnimRes
+    private int outAnimResId = R.anim.anim_top_out;
+
     private int position;
+    private List<? extends CharSequence> notices = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
 
     public MarqueeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -46,8 +57,9 @@ public class MarqueeView extends ViewFlipper {
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MarqueeViewStyle, defStyleAttr, 0);
+
         interval = typedArray.getInteger(R.styleable.MarqueeViewStyle_mvInterval, interval);
-        isSetAnimDuration = typedArray.hasValue(R.styleable.MarqueeViewStyle_mvAnimDuration);
+        hasSetAnimDuration = typedArray.hasValue(R.styleable.MarqueeViewStyle_mvAnimDuration);
         animDuration = typedArray.getInteger(R.styleable.MarqueeViewStyle_mvAnimDuration, animDuration);
         singleLine = typedArray.getBoolean(R.styleable.MarqueeViewStyle_mvSingleLine, false);
         if (typedArray.hasValue(R.styleable.MarqueeViewStyle_mvTextSize)) {
@@ -55,8 +67,12 @@ public class MarqueeView extends ViewFlipper {
             textSize = Utils.px2sp(context, textSize);
         }
         textColor = typedArray.getColor(R.styleable.MarqueeViewStyle_mvTextColor, textColor);
+
         int gravityType = typedArray.getInt(R.styleable.MarqueeViewStyle_mvGravity, GRAVITY_LEFT);
         switch (gravityType) {
+            case GRAVITY_LEFT:
+                gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
+                break;
             case GRAVITY_CENTER:
                 gravity = Gravity.CENTER;
                 break;
@@ -64,6 +80,33 @@ public class MarqueeView extends ViewFlipper {
                 gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
                 break;
         }
+
+        hasSetDirection = typedArray.hasValue(R.styleable.MarqueeViewStyle_mvDirection);
+        direction = typedArray.getInt(R.styleable.MarqueeViewStyle_mvDirection, direction);
+        if (hasSetDirection) {
+            switch (direction) {
+                case DIRECTION_BOTTOM_TO_TOP:
+                    inAnimResId = R.anim.anim_bottom_in;
+                    outAnimResId = R.anim.anim_top_out;
+                    break;
+                case DIRECTION_TOP_TO_BOTTOM:
+                    inAnimResId = R.anim.anim_top_in;
+                    outAnimResId = R.anim.anim_bottom_out;
+                    break;
+                case DIRECTION_RIGHT_TO_LEFT:
+                    inAnimResId = R.anim.anim_right_in;
+                    outAnimResId = R.anim.anim_left_out;
+                    break;
+                case DIRECTION_LEFT_TO_RIGHT:
+                    inAnimResId = R.anim.anim_left_in;
+                    outAnimResId = R.anim.anim_right_out;
+                    break;
+            }
+        } else {
+            inAnimResId = R.anim.anim_bottom_in;
+            outAnimResId = R.anim.anim_top_out;
+        }
+
         typedArray.recycle();
         setFlipInterval(interval);
     }
@@ -74,7 +117,7 @@ public class MarqueeView extends ViewFlipper {
      * @param notice 字符串
      */
     public void startWithText(String notice) {
-        startWithText(notice, R.anim.anim_bottom_in, R.anim.anim_top_out);
+        startWithText(notice, inAnimResId, outAnimResId);
     }
 
     /**
@@ -137,7 +180,7 @@ public class MarqueeView extends ViewFlipper {
      * @param notices 字符串列表
      */
     public void startWithList(List<? extends CharSequence> notices) {
-        startWithList(notices, R.anim.anim_bottom_in, R.anim.anim_top_out);
+        startWithList(notices, inAnimResId, outAnimResId);
     }
 
     /**
@@ -239,11 +282,11 @@ public class MarqueeView extends ViewFlipper {
      */
     private void setInAndOutAnimation(@AnimRes int inAnimResId, @AnimRes int outAnimResID) {
         Animation inAnim = AnimationUtils.loadAnimation(getContext(), inAnimResId);
-        if (isSetAnimDuration) inAnim.setDuration(animDuration);
+        if (hasSetAnimDuration) inAnim.setDuration(animDuration);
         setInAnimation(inAnim);
 
         Animation outAnim = AnimationUtils.loadAnimation(getContext(), outAnimResID);
-        if (isSetAnimDuration) outAnim.setDuration(animDuration);
+        if (hasSetAnimDuration) outAnim.setDuration(animDuration);
         setOutAnimation(outAnim);
     }
 

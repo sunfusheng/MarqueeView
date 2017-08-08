@@ -76,9 +76,9 @@ public class TabFragment extends Fragment {
 
         marqueeView2.startWithText(getString(R.string.marquee_text));
 
-        marqueeView3.startWithText(getString(R.string.marquee_texts), R.anim.anim_right_in, R.anim.anim_left_out);
+        marqueeView3.startWithText(getString(R.string.marquee_texts));
 
-        marqueeView4.startWithText(getString(R.string.marquee_texts), R.anim.anim_left_in, R.anim.anim_right_out);
+        marqueeView4.startWithText(getString(R.string.marquee_texts));
     }
 
 }
