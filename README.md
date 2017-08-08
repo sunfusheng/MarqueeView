@@ -1,7 +1,7 @@
 # MarqueeView  [ ![Download](https://api.bintray.com/packages/sfsheng0322/maven/marqueeview/images/download.svg?version=1.3.0) ](https://bintray.com/sfsheng0322/maven/marqueeview/1.3.0/link)
 
-俗名：可垂直可水平跑马灯  
-学名：可垂直可水平翻页公告
+俗名：可垂直跑、可水平跑的跑马灯  
+学名：可垂直翻、可水平翻的翻页公告
 
 ### 效果图
 
