@@ -30,6 +30,10 @@ public class MarqueeView extends ViewFlipper {
     private int textSize = 14;
     private int textColor = 0xffffffff;
 
+    private Animation animIn, animOut;//进出动画
+//    private int animInRes = R.anim.bottom_in;
+//    private int animOutRes = R.anim.top_out;
+
     private boolean singleLine = false;
     private int gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
     private static final int TEXT_GRAVITY_LEFT = 0, TEXT_GRAVITY_CENTER = 1, TEXT_GRAVITY_RIGHT = 2;
@@ -141,11 +145,11 @@ public class MarqueeView extends ViewFlipper {
     private void resetAnimation() {
         clearAnimation();
 
-        Animation animIn = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_in);
+        Animation animIn = AnimationUtils.loadAnimation(mContext, R.anim.bottom_in);
         if (isSetAnimDuration) animIn.setDuration(animDuration);
         setInAnimation(animIn);
 
-        Animation animOut = AnimationUtils.loadAnimation(mContext, R.anim.anim_marquee_out);
+        Animation animOut = AnimationUtils.loadAnimation(mContext, R.anim.top_out);
         if (isSetAnimDuration) animOut.setDuration(animDuration);
         setOutAnimation(animOut);
     }
@@ -180,6 +184,15 @@ public class MarqueeView extends ViewFlipper {
 
     public interface OnItemClickListener {
         void onItemClick(int position, TextView textView);
+    }
+
+    public void setAnimationInAndOut(int animInId, int animOutID){
+        animIn = AnimationUtils.loadAnimation(getContext(), animInId);
+        animOut = AnimationUtils.loadAnimation(getContext(), animOutID);
+        animIn.setDuration(animDuration);
+        animOut.setDuration(animDuration);
+        setInAnimation(animIn);
+        setOutAnimation(animOut);
     }
 
 }
