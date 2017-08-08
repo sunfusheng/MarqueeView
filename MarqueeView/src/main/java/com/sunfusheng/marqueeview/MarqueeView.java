@@ -33,11 +33,11 @@ public class MarqueeView extends ViewFlipper {
 
     private boolean singleLine = false;
     private int gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
-    private static final int TEXT_GRAVITY_LEFT = 0;
-    private static final int TEXT_GRAVITY_CENTER = 1;
-    private static final int TEXT_GRAVITY_RIGHT = 2;
+    private static final int GRAVITY_LEFT = 0;
+    private static final int GRAVITY_CENTER = 1;
+    private static final int GRAVITY_RIGHT = 2;
 
-    private TextView[] textViews = new TextView[3];
+    private int position;
 
     public MarqueeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,12 +55,12 @@ public class MarqueeView extends ViewFlipper {
             textSize = Utils.px2sp(context, textSize);
         }
         textColor = typedArray.getColor(R.styleable.MarqueeViewStyle_mvTextColor, textColor);
-        int gravityType = typedArray.getInt(R.styleable.MarqueeViewStyle_mvGravity, TEXT_GRAVITY_LEFT);
+        int gravityType = typedArray.getInt(R.styleable.MarqueeViewStyle_mvGravity, GRAVITY_LEFT);
         switch (gravityType) {
-            case TEXT_GRAVITY_CENTER:
+            case GRAVITY_CENTER:
                 gravity = Gravity.CENTER;
                 break;
-            case TEXT_GRAVITY_RIGHT:
+            case GRAVITY_RIGHT:
                 gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
                 break;
         }
@@ -155,41 +155,57 @@ public class MarqueeView extends ViewFlipper {
 
     private boolean start(@AnimRes int inAnimResId, @AnimRes int outAnimResID) {
         removeAllViews();
-
-        for (int i = 0; i < notices.size(); i++) {
-            final TextView textView = createTextView(notices.get(i), i);
-            final int finalI = i;
-            textView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(finalI, textView);
-                    }
-                }
-            });
-            addView(textView);
-        }
-
         clearAnimation();
+
+        position = 0;
+        addView(createTextView(notices.get(position)));
+
         if (notices.size() > 1) {
             setInAndOutAnimation(inAnimResId, outAnimResID);
             startFlipping();
         }
+
+        getInAnimation().setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                position++;
+                if (position >= notices.size()) {
+                    position = 0;
+                }
+                View view = createTextView(notices.get(position));
+                if (view.getParent() == null) {
+                    addView(view);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
         return true;
     }
 
-    private TextView createTextView(CharSequence text, int position) {
-        TextView textView = textViews[position % 3];
+    private TextView createTextView(CharSequence text) {
+        TextView textView = (TextView) getChildAt(getDisplayedChild() + 1);
         if (textView == null) {
             textView = new TextView(getContext());
             textView.setGravity(gravity);
             textView.setTextColor(textColor);
             textView.setTextSize(textSize);
             textView.setSingleLine(singleLine);
-            textViews[position % 3] = textView;
-        } else {
-            removeView(textView);
         }
+        textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(getPosition(), (TextView) v);
+                }
+            }
+        });
         textView.setText(text);
         textView.setTag(position);
         return textView;
