@@ -233,7 +233,7 @@ public class MarqueeView extends ViewFlipper {
     }
 
     private TextView createTextView(CharSequence text) {
-        TextView textView = (TextView) getChildAt(getDisplayedChild() + 1);
+        TextView textView = (TextView) getChildAt((getDisplayedChild() + 1) % 3);
         if (textView == null) {
             textView = new TextView(getContext());
             textView.setGravity(gravity);
