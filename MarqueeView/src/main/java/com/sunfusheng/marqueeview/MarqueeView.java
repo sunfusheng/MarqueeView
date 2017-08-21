@@ -208,27 +208,29 @@ public class MarqueeView extends ViewFlipper {
             startFlipping();
         }
 
-        getInAnimation().setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                position++;
-                if (position >= notices.size()) {
-                    position = 0;
+        if (getInAnimation() != null) {
+            getInAnimation().setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
                 }
-                View view = createTextView(notices.get(position));
-                if (view.getParent() == null) {
-                    addView(view);
-                }
-            }
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    position++;
+                    if (position >= notices.size()) {
+                        position = 0;
+                    }
+                    View view = createTextView(notices.get(position));
+                    if (view.getParent() == null) {
+                        addView(view);
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+        }
         return true;
     }
 
