@@ -9,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 3
-        versionName "1.3"
+        versionName "1.3.2"
     }
 
     buildTypes {
@@ -26,5 +26,5 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
 
     compile project(':MarqueeView')
-//    compile 'com.sunfusheng:marqueeview:1.3.1'
+//    compile 'com.sunfusheng:marqueeview:1.3.2'
 }

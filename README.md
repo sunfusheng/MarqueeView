@@ -1,4 +1,4 @@
-# MarqueeView  [ ![Download](https://api.bintray.com/packages/sfsheng0322/maven/marqueeview/images/download.svg?version=1.3.1) ](https://bintray.com/sfsheng0322/maven/marqueeview/1.3.1/link)
+# MarqueeView  [ ![Download](https://api.bintray.com/packages/sfsheng0322/maven/marqueeview/images/download.svg?version=1.3.1) ](https://bintray.com/sfsheng0322/maven/marqueeview/latest)
 
 俗名：可垂直跑、可水平跑的跑马灯  
 学名：可垂直翻、可水平翻的翻页公告
@@ -14,13 +14,13 @@
     <dependency>
       <groupId>com.sunfusheng</groupId>
       <artifactId>marqueeview</artifactId>
-      <version>1.3.1</version>
+      <version>1.3.2</version>
       <type>pom</type>
     </dependency>
 
 #### Gradle:
 
-    compile 'com.sunfusheng:marqueeview:1.3.1'
+    compile 'com.sunfusheng:marqueeview:1.3.2'
 
 #### 属性
 
