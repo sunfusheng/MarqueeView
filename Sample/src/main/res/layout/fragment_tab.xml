@@ -13,6 +13,7 @@
         android:background="@color/blue"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
+        app:mvDirection="bottom_to_top"
         app:mvAnimDuration="1000"
         app:mvInterval="3000"
         app:mvSingleLine="true"/>

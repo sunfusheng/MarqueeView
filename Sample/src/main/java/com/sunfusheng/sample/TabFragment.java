@@ -39,12 +39,6 @@ public class TabFragment extends Fragment {
         marqueeView2 = (MarqueeView) view.findViewById(R.id.marqueeView2);
         marqueeView3 = (MarqueeView) view.findViewById(R.id.marqueeView3);
         marqueeView4 = (MarqueeView) view.findViewById(R.id.marqueeView4);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         List<CharSequence> list = new ArrayList<>();
         SpannableString ss1 = new SpannableString("1、MarqueeView开源项目");
@@ -79,6 +73,8 @@ public class TabFragment extends Fragment {
         marqueeView3.startWithText(getString(R.string.marquee_texts));
 
         marqueeView4.startWithText(getString(R.string.marquee_texts));
+
+        return view;
     }
 
 }

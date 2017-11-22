@@ -171,7 +171,7 @@ public class MarqueeView extends ViewFlipper {
         if (notices == null) notices = new ArrayList<>();
         notices.clear();
         notices.addAll(list);
-        start(inAnimResId, outAnimResID);
+        postStart(inAnimResId, outAnimResID);
     }
 
     /**
@@ -193,10 +193,19 @@ public class MarqueeView extends ViewFlipper {
     public void startWithList(List<? extends CharSequence> notices, @AnimRes int inAnimResId, @AnimRes int outAnimResID) {
         if (Utils.isEmpty(notices)) return;
         setNotices(notices);
-        start(inAnimResId, outAnimResID);
+        postStart(inAnimResId, outAnimResID);
     }
 
-    private boolean start(@AnimRes int inAnimResId, @AnimRes int outAnimResID) {
+    private void postStart(final @AnimRes int inAnimResId, final @AnimRes int outAnimResID) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                start(inAnimResId, outAnimResID);
+            }
+        });
+    }
+
+    private void start(final @AnimRes int inAnimResId, final @AnimRes int outAnimResID) {
         removeAllViews();
         clearAnimation();
 
@@ -231,7 +240,6 @@ public class MarqueeView extends ViewFlipper {
                 }
             });
         }
-        return true;
     }
 
     private TextView createTextView(CharSequence text) {
