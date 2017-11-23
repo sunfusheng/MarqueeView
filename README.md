@@ -14,13 +14,13 @@
     <dependency>
       <groupId>com.sunfusheng</groupId>
       <artifactId>marqueeview</artifactId>
-      <version>1.3.2</version>
+      <version>1.3.3</version>
       <type>pom</type>
     </dependency>
 
 #### Gradle:
 
-    compile 'com.sunfusheng:marqueeview:1.3.2'
+    compile 'com.sunfusheng:marqueeview:1.3.3'
 
 #### 属性
 
@@ -115,7 +115,7 @@
 
 License
 --
-    Copyright (C) 2016 sfsheng0322@126.com
+    Copyright (C) 2017 sfsheng0322@126.com
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
