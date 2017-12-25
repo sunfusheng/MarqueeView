@@ -37,7 +37,7 @@ public class AboutActivity extends AppCompatActivity {
     @SuppressLint("NewApi")
     private void initView() {
         webView = (WebView) findViewById(R.id.webView);
-        setTitle("关于(V"+getVersionName(this)+")");
+        setTitle("关于(V" + getVersionName(this) + ")");
 
         settings = webView.getSettings();
         settings.setJavaScriptEnabled(true); //如果访问的页面中有Javascript，则WebView必须设置支持Javascript
@@ -83,7 +83,7 @@ public class AboutActivity extends AppCompatActivity {
     public static String getVersionName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(),0);
+            PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             String version = packInfo.versionName;
             if (!TextUtils.isEmpty(version)) {
                 return version;

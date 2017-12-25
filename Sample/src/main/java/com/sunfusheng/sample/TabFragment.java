@@ -34,11 +34,11 @@ public class TabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab, container, false);
-        marqueeView = (MarqueeView) view.findViewById(R.id.marqueeView);
-        marqueeView1 = (MarqueeView) view.findViewById(R.id.marqueeView1);
-        marqueeView2 = (MarqueeView) view.findViewById(R.id.marqueeView2);
-        marqueeView3 = (MarqueeView) view.findViewById(R.id.marqueeView3);
-        marqueeView4 = (MarqueeView) view.findViewById(R.id.marqueeView4);
+        marqueeView = view.findViewById(R.id.marqueeView);
+        marqueeView1 = view.findViewById(R.id.marqueeView1);
+        marqueeView2 = view.findViewById(R.id.marqueeView2);
+        marqueeView3 = view.findViewById(R.id.marqueeView3);
+        marqueeView4 = view.findViewById(R.id.marqueeView4);
 
         List<CharSequence> list = new ArrayList<>();
         SpannableString ss1 = new SpannableString("1、MarqueeView开源项目");
