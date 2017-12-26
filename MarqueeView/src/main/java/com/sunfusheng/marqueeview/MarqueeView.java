@@ -50,9 +50,14 @@ public class MarqueeView extends ViewFlipper {
     private List<? extends CharSequence> notices = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
 
+    public MarqueeView(Context context) {
+        this(context, null);
+    }
+
     public MarqueeView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
+
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
