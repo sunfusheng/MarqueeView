@@ -5,7 +5,7 @@
 
 ### 效果图
 
-<img src="/screenshot/MarqueeView.gif" style="width: 30%;">
+<img src="/resources/MarqueeView.gif" style="width: 30%;">
 
 ### 使用
 
@@ -115,7 +115,7 @@
 
 License
 --
-    Copyright (C) 2017 sfsheng0322@126.com
+    Copyright (C) 2018 sfsheng0322@126.com
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

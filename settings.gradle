@@ -1,1 +1,10 @@
 include ':Sample', ':MarqueeView'
+
+gradle.ext.compileSdkVersion = 27
+gradle.ext.buildToolsVersion = '27.0.3'
+gradle.ext.supportLibraryVersion = '27.0.2'
+
+gradle.ext.minSdkVersion = 14
+gradle.ext.targetSdkVersion = 27
+gradle.ext.versionCode = 7
+gradle.ext.versionName = "1.3.4"

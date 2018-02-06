@@ -2,12 +2,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion gradle.compileSdkVersion
+    buildToolsVersion gradle.buildToolsVersion
+
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 26
-        versionCode 6
-        versionName "1.3.3"
+        minSdkVersion gradle.minSdkVersion
+        targetSdkVersion gradle.targetSdkVersion
+        versionCode gradle.versionCode
+        versionName gradle.versionName
     }
 
     buildTypes {
@@ -20,14 +22,14 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:appcompat-v7:27.0.2'
 }
 
 publish {
     userOrg = 'sfsheng0322'
     groupId = 'com.sunfusheng'
     artifactId = 'marqueeview'
-    publishVersion = '1.3.3'
+    publishVersion = gradle.versionName
     desc = 'A custom view for vertical or horizontal flip announcement.'
     website = 'https://github.com/sfsheng0322/MarqueeView'
 }

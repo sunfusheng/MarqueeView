@@ -1,0 +1,62 @@
+language: android
+jdk: oraclejdk8
+sudo: true
+
+android:
+  components:
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-27.0.3
+  - android-27
+  - sys-img-armeabi-v7a-android-27
+  - extra-android-support
+  - extra-android-m2repository
+  - extra-google-m2repository
+  - add-on
+  - extra
+  licenses:
+  - android-sdk-preview-license-52d11cd2
+  - android-sdk-license-.+
+  - google-gdk-license-.+
+
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
+
+before_install:
+- mkdir "$ANDROID_HOME/licenses" || true
+- echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
+- openssl aes-256-cbc -K $encrypted_9a063031b0d7_key -iv $encrypted_9a063031b0d7_iv
+  -in signings/keystore.jks.enc -out signings/keystore.jks -d
+- gem install fir-cli
+
+before_script:
+- chmod +x gradlew
+
+script:
+- "./gradlew assembleRelease"
+
+deploy:
+#  provider: releases
+  api_key:
+    secure: W8oDAIn5G+QG/xT0AmxJZ5QcGGWdOB8ovF5uRdTZWOhG/p9b5jEjF6cHyFLLh3uAshL/iHouI+3fMr9Vk/Q7jFZKbws1tX/kCK9RezhERTIpWN/Q4+lV61YZi7+8GKo72L4RAAlrGQT5wKrr8cxfmyojmfLXiKjL6Vd0wXNa1mLnFPeAJaD8fQiw4UcJfenwJbqkXnJBkU/BbDQTLrH+IHw1b7SZ7uFYKEYEnQn8ktW7+2J1+EKf24yzkCrsutE4a/cAUOQPW4TBW8qMoXr9cwUvV33b/glIhg6fIfJVe5aIo+P+nNUpXmBfB9oPT7tGKAPLgw5Os4GyupRESUwO73/TJe9YD7kiM/Oml1h809mGj1vQJqv+QbIm1UoUYWw4PsDJXCGm0NhLBEr6YzCW7O+q8Zn5Vj0KTsBRyrpNaUkqQaDmTV5OyO9ViapflQQ5VnICAJCI+FkFda7E7d9nvLivAfQ0vWhANSwMo1KEBsOWqxay+KOO3DHtUVGwn4DXVVdWTQqFgPetS1/u+RLrZ062c6XmMvT9MbhudwCYC9avhim5eMpmjqbPrqVqIDWcw6gL+mYR88KbLlmJZCIM/v7W+WzeE+sSsBmp8WH95jE7rPviassWnspIrRjn9H3sTi5oxfeC4tqHM3hvYRrJ/9Fh9HA3cA0V2lQKpV6gs08=
+  file: app/outputs/MarqueeView.apk
+  skip_cleanup: true
+  on:
+    repo: sfsheng0322/MarqueeView
+#    tags: true
+#    all_branches: true
+
+after_deploy:
+#- fir p app/outputs/MarqueeView.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
+
+notifications:
+  email:
+#  - sfsheng0322@126.com
