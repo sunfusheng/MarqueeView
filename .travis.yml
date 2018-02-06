@@ -27,13 +27,10 @@ cache:
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.android/build-cache"
 before_install:
-- openssl aes-256-cbc -K $encrypted_98d2608e6a8a_key -iv $encrypted_98d2608e6a8a_iv
-  -in signings/keystore.jks.enc -out signings/keystore.jks -d
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
-- openssl aes-256-cbc -K $encrypted_9a063031b0d7_key -iv $encrypted_9a063031b0d7_iv
+- openssl aes-256-cbc -K $encrypted_98d2608e6a8a_key -iv $encrypted_98d2608e6a8a_iv
   -in signings/keystore.jks.enc -out signings/keystore.jks -d
-- gem install fir-cli
 before_script:
 - chmod +x gradlew
 script:
