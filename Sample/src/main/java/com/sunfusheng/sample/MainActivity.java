@@ -8,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.sunfusheng.sample.fragment.CommonFragment;
+import com.sunfusheng.sample.fragment.RecyclerViewFragment;
+import com.sunfusheng.sample.fragment.adapter.FragmentPagerItemAdapter;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +26,9 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter.Builder(this, getSupportFragmentManager())
-                .add("TAB1", new TabFragment())
-                .add("TAB2", new TabFragment())
-                .add("TAB3", new TabFragment())
-                .add("TAB4", new TabFragment())
+                .add("Common1", new CommonFragment())
+                .add("Common2", new CommonFragment())
+                .add("RecyclerView", new RecyclerViewFragment())
                 .build();
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(1);

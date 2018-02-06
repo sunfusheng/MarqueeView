@@ -3,6 +3,9 @@ apply plugin: 'com.android.application'
 Properties signingProperties = new Properties()
 signingProperties.load(new FileInputStream(file("../signings/signing.properties")))
 
+Properties localProperties = new Properties();
+localProperties.load(new FileInputStream(file("../local.properties")));
+
 android {
     compileSdkVersion gradle.compileSdkVersion
     buildToolsVersion gradle.buildToolsVersion
@@ -58,11 +61,20 @@ def generateApk(variant) {
     }
 }
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:27.0.2'
-    compile 'com.android.support:design:27.0.2'
+static Boolean isProjectActivated(Properties properties, String projectName) {
+    String property = properties.getProperty(projectName);
+    return (null != property && property.toBoolean());
+}
 
-    compile project(':MarqueeView')
-//    compile 'com.sunfusheng:marqueeview:1.3.3'
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:' + gradle.supportLibraryVersion
+    implementation 'com.android.support:design:' + gradle.supportLibraryVersion
+    implementation 'com.android.support:recyclerview-v7:' + gradle.supportLibraryVersion
+
+    if (isProjectActivated(localProperties, "localSourceEnabled")) {
+        compile project(':MarqueeView')
+    } else {
+        compile 'com.sunfusheng:marqueeview:1.3.3'
+    }
 }

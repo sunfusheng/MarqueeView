@@ -1,4 +1,4 @@
-package com.sunfusheng.sample;
+package com.sunfusheng.sample.fragment.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 /**
- * Created by sunfusheng on 2017/7/20.
+ * @author by sunfusheng on 2017/7/20.
  */
 public class FragmentPagerItem {
 

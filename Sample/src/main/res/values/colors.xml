@@ -19,4 +19,13 @@
     <color name="half_transparent">#4f000000</color>
     <color name="half_transparent_white">#80ffffff</color>
 
+    <color name="font1">#333333</color>
+    <color name="font2">#9d9d9d</color>
+
+    <color name="divider1">#ebebeb</color>
+    <color name="divider2">#d6d6d6</color>
+
+    <color name="background_common">#ebebeb</color>
+    <color name="background_common_dark">#d6d6d6</color>
+
 </resources>

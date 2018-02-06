@@ -1,4 +1,4 @@
-package com.sunfusheng.sample;
+package com.sunfusheng.sample.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,18 +11,18 @@ import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sunfusheng.marqueeview.MarqueeView;
+import com.sunfusheng.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sunfusheng on 2017/8/8.
+ * @author by sunfusheng on 2017/8/8.
  */
-public class TabFragment extends Fragment {
+public class CommonFragment extends Fragment {
 
     private MarqueeView marqueeView;
     private MarqueeView marqueeView1;
@@ -53,20 +53,10 @@ public class TabFragment extends Fragment {
         list.add("4、新浪微博：@孙福生微博");
 
         marqueeView.startWithList(list);
-        marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, TextView textView) {
-                Toast.makeText(getContext(), textView.getText() + "", Toast.LENGTH_SHORT).show();
-            }
-        });
+        marqueeView.setOnItemClickListener((position, textView) -> Toast.makeText(getContext(), textView.getText() + "", Toast.LENGTH_SHORT).show());
 
         marqueeView1.startWithText(getString(R.string.marquee_texts), R.anim.anim_top_in, R.anim.anim_bottom_out);
-        marqueeView1.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, TextView textView) {
-                Toast.makeText(getContext(), String.valueOf(marqueeView1.getPosition()) + ". " + textView.getText(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        marqueeView1.setOnItemClickListener((position, textView) -> Toast.makeText(getContext(), String.valueOf(marqueeView1.getPosition()) + ". " + textView.getText(), Toast.LENGTH_SHORT).show());
 
         marqueeView2.startWithText(getString(R.string.marquee_text));
 

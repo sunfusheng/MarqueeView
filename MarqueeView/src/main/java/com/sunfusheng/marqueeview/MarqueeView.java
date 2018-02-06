@@ -57,7 +57,6 @@ public class MarqueeView extends ViewFlipper {
     public MarqueeView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
-
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -210,6 +209,8 @@ public class MarqueeView extends ViewFlipper {
         });
     }
 
+    private boolean isAnimStart = false;
+
     private void start(final @AnimRes int inAnimResId, final @AnimRes int outAnimResID) {
         removeAllViews();
         clearAnimation();
@@ -226,6 +227,10 @@ public class MarqueeView extends ViewFlipper {
             getInAnimation().setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
+                    if (isAnimStart) {
+                        animation.cancel();
+                    }
+                    isAnimStart = true;
                 }
 
                 @Override
@@ -238,6 +243,7 @@ public class MarqueeView extends ViewFlipper {
                     if (view.getParent() == null) {
                         addView(view);
                     }
+                    isAnimStart = false;
                 }
 
                 @Override

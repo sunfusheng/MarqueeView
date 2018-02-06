@@ -1,7 +1,8 @@
-package com.sunfusheng.sample;
+package com.sunfusheng.sample.fragment.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sunfusheng on 2017/7/20.
+ * @author by sunfusheng on 2017/7/20.
  */
 public class FragmentPagerItemAdapter extends FragmentPagerAdapter {
 
@@ -27,6 +28,7 @@ public class FragmentPagerItemAdapter extends FragmentPagerAdapter {
         this.items = items;
     }
 
+    @NonNull
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Fragment fragment = (Fragment) super.instantiateItem(container, position);

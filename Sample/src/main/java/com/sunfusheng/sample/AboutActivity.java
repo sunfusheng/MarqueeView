@@ -18,7 +18,7 @@ import android.webkit.WebViewClient;
 
 
 /**
- * Created by sunfusheng on 16/4/24.
+ * @author by sunfusheng on 16/4/24.
  */
 public class AboutActivity extends AppCompatActivity {
 
