@@ -1,6 +1,7 @@
 language: android
 jdk: oraclejdk8
 sudo: true
+
 android:
   components:
   - tools
@@ -18,6 +19,7 @@ android:
   - android-sdk-preview-license-52d11cd2
   - android-sdk-license-.+
   - google-gdk-license-.+
+
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -26,22 +28,34 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.android/build-cache"
+
 before_install:
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
 - openssl aes-256-cbc -K $encrypted_98d2608e6a8a_key -iv $encrypted_98d2608e6a8a_iv
   -in signings/keystore.jks.enc -out signings/keystore.jks -d
+- gem install fir-cli
+
 before_script:
 - chmod +x gradlew
+
 script:
 - "./gradlew assembleRelease"
+
 deploy:
   provider: releases
   api_key:
     secure: BYgbTvgpuAcfbsRlU3zaGOddULelZdWYb2+7R7/2XnipLUd9MLp0QUyKSQ81LAlrvYOsH9UMP0DQu9OIzjcGsfP3Z9NDkgQjZZ6v3LNeiMcDlgCZy4oMAtk8EzvpvtzbXSGQ4T5RGgCy5d+dSQwpbTwhxo5vn6ad0MmZFxoZ8D+6DX52tMkgLdxDe+LWcGOowkXw88DTZKz5KqO0KcLsqowwL2/h0uNl3V1d72dEyxU7xSqNXctBua+DOyMVu9y0ZP0vu/tf98saTNCDyxSmZqLZ/Mq2iCdeX28C44m0+zKAds5UJFGxrcGJTbtW66visYkNrQuRrOoCHmyRZG3nGPiTKYNoxSZbQH00PJOlCrVSltQrhf4u/gHhB10KOgnK60OQRxj5ffMgGqJT0BTryiU4yqvw3KESElMWwdPni/VSZ0zEr9v5/WxhY2W9ZibJvbYDh5KjUP93B7CXw+9EjIW39OMmyTWV4KEX1ng5JXM0lykED+jKgyDeVUwyrZTxzOjxvh3oluv8KfnoHMggoUTQsLmYNp02gm+fS+eYLMMrp6Tu3SNtnm5lYuAav/pCr6+vQRwGC9NEWVHJhRc6IIVyjRjbXz/FwX5VtmVmgzWovL2aVDYWB+P5of80ymcD36GgsXO0ZdYGxTUky2+rQVza9yqniygjK0FPfcA/rfc=
   file: Sample/outputs/MarqueeView.apk
+  skip_cleanup: true
   on:
     repo: sfsheng0322/MarqueeView
-after_deploy: 
+    tags: true
+    all_branches: true
+
+after_deploy:
+- fir p app/outputs/Gank.IO.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
+
 notifications:
-  email: 
+  email:
+  - sfsheng0322@126.com
