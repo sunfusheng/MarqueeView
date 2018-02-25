@@ -67,8 +67,8 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:' + gradle.supportLibraryVersion
 
     if (localSourceEnabled) {
-        compile project(':MarqueeView')
+        implementation project(':MarqueeView')
     } else {
-        compile 'com.sunfusheng:marqueeview:1.3.3'
+        implementation 'com.sunfusheng:marqueeview:' + gradle.versionName
     }
 }

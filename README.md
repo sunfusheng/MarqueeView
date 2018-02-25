@@ -7,20 +7,9 @@
 
 <img src="/resources/MarqueeView.gif" style="width: 30%;">
 
-### 使用
-
-#### Maven:
-
-    <dependency>
-      <groupId>com.sunfusheng</groupId>
-      <artifactId>marqueeview</artifactId>
-      <version>1.3.3</version>
-      <type>pom</type>
-    </dependency>
-
 #### Gradle:
 
-    compile 'com.sunfusheng:marqueeview:1.3.3'
+    compile 'com.sunfusheng:marqueeview:<latest-version>'
 
 #### 属性
 
@@ -94,33 +83,34 @@
         marqueeView.stopFlipping();
     }
     
-    
-### [APK下载地址](http://fir.im/MarqueeView)
+<br/>
 
-### 个人公众号
+### 扫一扫[Fir.im](https://fir.im/MarqueeView)二维码下载APK
 
-<img src="/resources/wechat.jpg" style="width: 30%;">
+<img src="/resources/fir.im.png">
+
+<br/>
+
+### 个人微信公众号
+
+<img src="http://ourvm0t8d.bkt.clouddn.com/wx_gongzhonghao.png">
+
+<br/>
+
+### 打点赏给作者加点油^_^
+
+<img src="http://ourvm0t8d.bkt.clouddn.com/wx_shoukuanma.png" >
+
+<br/>
 
 ### 关于我
 
 [GitHub: sfsheng0322](https://github.com/sfsheng0322)  
-[个人邮箱: sfsheng0322@126.com]()  
-[个人博客: sunfusheng.com](http://sunfusheng.com/)  
-[简书主页](http://www.jianshu.com/users/88509e7e2ed1/latest_articles)  
+
+[个人邮箱: sfsheng0322@126.com](https://mail.126.com/)
+  
+[个人博客: sunfusheng.com](http://sunfusheng.com/)
+  
+[简书主页](http://www.jianshu.com/users/88509e7e2ed1/latest_articles)
+  
 [新浪微博](http://weibo.com/u/3852192525) 
-
-License
---
-    Copyright (C) 2018 sfsheng0322@126.com
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
