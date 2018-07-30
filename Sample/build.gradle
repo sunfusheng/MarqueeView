@@ -5,8 +5,6 @@ signingProperties.load(new FileInputStream(file("../signings/signing.properties"
 
 android {
     compileSdkVersion gradle.compileSdkVersion
-    buildToolsVersion gradle.buildToolsVersion
-
     defaultConfig {
         applicationId "com.sunfusheng.sample"
         minSdkVersion gradle.minSdkVersion

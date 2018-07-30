@@ -3,8 +3,6 @@ apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion gradle.compileSdkVersion
-    buildToolsVersion gradle.buildToolsVersion
-
     defaultConfig {
         minSdkVersion gradle.minSdkVersion
         targetSdkVersion gradle.targetSdkVersion
