@@ -4,13 +4,13 @@ Properties signingProperties = new Properties()
 signingProperties.load(new FileInputStream(file("../signings/signing.properties")))
 
 android {
-    compileSdkVersion gradle.compileSdkVersion
+    compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId "com.sunfusheng.sample"
-        minSdkVersion gradle.minSdkVersion
-        targetSdkVersion gradle.targetSdkVersion
-        versionCode gradle.versionCode
-        versionName gradle.versionName
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
         multiDexEnabled true
     }
 
@@ -60,9 +60,9 @@ def localSourceEnabled = true
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:' + gradle.supportLibraryVersion
-    implementation 'com.android.support:design:' + gradle.supportLibraryVersion
-    implementation 'com.android.support:recyclerview-v7:' + gradle.supportLibraryVersion
+    implementation 'com.android.support:appcompat-v7:' + rootProject.supportLibraryVersion
+    implementation 'com.android.support:design:' + rootProject.supportLibraryVersion
+    implementation 'com.android.support:recyclerview-v7:' + rootProject.supportLibraryVersion
 
     if (localSourceEnabled) {
         implementation project(':MarqueeView')
