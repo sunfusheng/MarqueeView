@@ -263,6 +263,10 @@ public class MarqueeView extends ViewFlipper {
             textView.setTextColor(textColor);
             textView.setTextSize(textSize);
             textView.setSingleLine(singleLine);
+            if (singleLine) {
+                textView.setMaxLines(1);
+                textView.setEllipsize(TextUtils.TruncateAt.END);
+            }
             textView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
