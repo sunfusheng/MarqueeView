@@ -29,29 +29,18 @@ android {
     }
 
     buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all {
-                variant -> generateApk(variant)
-            }
-        }
-
         debug {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all {
-                variant -> generateApk(variant)
-            }
         }
-    }
-}
-
-def generateApk(variant) {
-    if (variant.buildType.name == "release") {
-        variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/Sample/outputs")
-        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
-            apkData.outputFileName = "MarqueeView.apk"
+        release {
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "MarqueeView-${variant.versionName}.apk"
+                }
+            }
         }
     }
 }
@@ -67,6 +56,6 @@ dependencies {
     if (localSourceEnabled) {
         implementation project(':MarqueeView')
     } else {
-        implementation 'com.sunfusheng:marqueeview:' + gradle.versionName
+        implementation 'com.sunfusheng:marqueeview:' + rootProject.versionName
     }
 }

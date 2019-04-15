@@ -12,7 +12,6 @@ import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sunfusheng.marqueeview.MarqueeView;
@@ -54,7 +53,7 @@ public class CommonFragment extends Fragment {
         list.add(ss3);
         list.add("4、新浪微博：@孙福生微博");
         //set Custom font
-        marqueeView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.setofont));
+        marqueeView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.huawenxinwei));
 
         marqueeView.startWithList(list);
         marqueeView.setOnItemClickListener((position, textView) -> Toast.makeText(getContext(), textView.getText() + "", Toast.LENGTH_SHORT).show());

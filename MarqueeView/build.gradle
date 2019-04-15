@@ -9,13 +9,6 @@ android {
         versionCode rootProject.versionCode
         versionName rootProject.versionName
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
 }
 
 dependencies {
@@ -25,8 +18,8 @@ dependencies {
 publish {
     userOrg = 'sfsheng0322'
     groupId = 'com.sunfusheng'
-    artifactId = 'marqueeview'
+    artifactId = 'MarqueeView'
     publishVersion = rootProject.versionName
     desc = 'A custom view for vertical or horizontal flip announcement.'
-    website = 'https://github.com/sfsheng0322/MarqueeView'
+    website = 'https://github.com/sunfusheng/MarqueeView'
 }

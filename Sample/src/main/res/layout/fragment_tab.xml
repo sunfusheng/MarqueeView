@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/xml_oval_half_transparent_bg"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
@@ -41,7 +41,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_speaker1"
-            app:mvFont="@font/setofont" />
+            app:mvFont="@font/huawenxinwei" />
     </RelativeLayout>
 
     <RelativeLayout

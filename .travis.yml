@@ -49,7 +49,7 @@ deploy:
   file: Sample/outputs/MarqueeView.apk
   skip_cleanup: true
   on:
-    repo: sfsheng0322/MarqueeView
+    repo: sunfusheng/MarqueeView
     tags: true
     all_branches: true
 

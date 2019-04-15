@@ -52,6 +52,7 @@ public class MarqueeView extends ViewFlipper {
     @AnimRes
     private int outAnimResId = R.anim.anim_top_out;
 
+    private int position;
     private List<? extends CharSequence> notices = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
 
@@ -226,7 +227,8 @@ public class MarqueeView extends ViewFlipper {
         if (notices == null || notices.isEmpty()) {
             throw new RuntimeException("The data source cannot be empty!");
         }
-        addView(createTextView(notices.get(0), 0));
+        position = 0;
+        addView(createTextView(notices.get(position)));
 
         if (notices.size() > 1) {
             setInAndOutAnimation(inAnimResId, outAnimResID);
@@ -245,11 +247,11 @@ public class MarqueeView extends ViewFlipper {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    int position = getPosition(getCurrentView());
-                    if (++position >= notices.size()) {
+                    position++;
+                    if (position >= notices.size()) {
                         position = 0;
                     }
-                    View view = createTextView(notices.get(position), position);
+                    View view = createTextView(notices.get(position));
                     if (view.getParent() == null) {
                         addView(view);
                     }
@@ -263,16 +265,17 @@ public class MarqueeView extends ViewFlipper {
         }
     }
 
-    private TextView createTextView(CharSequence text, int realPosition) {
+    private TextView createTextView(CharSequence text) {
         TextView textView = (TextView) getChildAt((getDisplayedChild() + 1) % totalViewCount);
         if (textView == null) {
             textView = new TextView(getContext());
             if (typeface != null) {
                 textView.setTypeface(typeface);
             }
-            textView.setGravity(gravity);
+            textView.setGravity(gravity | Gravity.CENTER_VERTICAL);
             textView.setTextColor(textColor);
             textView.setTextSize(textSize);
+            textView.setIncludeFontPadding(false);
             textView.setSingleLine(singleLine);
             if (singleLine) {
                 textView.setMaxLines(1);
@@ -282,18 +285,18 @@ public class MarqueeView extends ViewFlipper {
                 @Override
                 public void onClick(View v) {
                     if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(getPosition(v), (TextView) v);
+                        onItemClickListener.onItemClick(getPosition(), (TextView) v);
                     }
                 }
             });
         }
         textView.setText(text);
-        textView.setTag(realPosition);
+        textView.setTag(position);
         return textView;
     }
 
-    private int getPosition(View view) {
-        return (int) view.getTag();
+    public int getPosition() {
+        return (int) getCurrentView().getTag();
     }
 
     public List<? extends CharSequence> getNotices() {
