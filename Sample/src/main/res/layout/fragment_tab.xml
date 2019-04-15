@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,10 +12,10 @@
         android:background="@color/blue"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        app:mvDirection="bottom_to_top"
         app:mvAnimDuration="1000"
+        app:mvDirection="bottom_to_top"
         app:mvInterval="3000"
-        app:mvSingleLine="true"/>
+        app:mvSingleLine="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,7 +32,7 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_loudspeaker"/>
+            android:src="@mipmap/ic_loudspeaker" />
 
         <com.sunfusheng.marqueeview.MarqueeView
             android:id="@+id/marqueeView1"
@@ -41,7 +40,8 @@
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/iv_speaker1"/>
+            android:layout_toRightOf="@+id/iv_speaker1"
+            app:mvFont="@font/setofont" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -58,7 +58,7 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_loudspeaker"/>
+            android:src="@mipmap/ic_loudspeaker" />
 
         <com.sunfusheng.marqueeview.MarqueeView
             android:id="@+id/marqueeView2"
@@ -68,7 +68,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_speaker2"
             app:mvTextColor="@color/white"
-            app:mvTextSize="14sp"/>
+            app:mvTextSize="14sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -85,7 +85,7 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_red_loudspeaker"/>
+            android:src="@mipmap/ic_red_loudspeaker" />
 
         <com.sunfusheng.marqueeview.MarqueeView
             android:id="@+id/marqueeView3"
@@ -96,7 +96,7 @@
             android:layout_toRightOf="@+id/iv_speaker3"
             app:mvDirection="right_to_left"
             app:mvGravity="left"
-            app:mvTextColor="@color/red"/>
+            app:mvTextColor="@color/red" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -113,7 +113,7 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_red_loudspeaker"/>
+            android:src="@mipmap/ic_red_loudspeaker" />
 
         <com.sunfusheng.marqueeview.MarqueeView
             android:id="@+id/marqueeView4"
@@ -124,7 +124,7 @@
             android:layout_toRightOf="@+id/iv_loudspeaker4"
             app:mvDirection="left_to_right"
             app:mvGravity="right"
-            app:mvTextColor="@color/red"/>
+            app:mvTextColor="@color/red" />
     </RelativeLayout>
 
 </LinearLayout>

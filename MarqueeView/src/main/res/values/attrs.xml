@@ -6,6 +6,7 @@
         <attr name="mvTextSize" format="dimension|reference"/>
         <attr name="mvTextColor" format="color|reference"/>
         <attr name="mvSingleLine" format="boolean"/>
+        <attr name="mvFont" format="reference"/>
         <attr name="mvGravity">
             <enum name="left" value="0"/>
             <enum name="center" value="1"/>
