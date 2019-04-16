@@ -55,7 +55,7 @@ deploy:
 
 after_deploy:
 - "./gradlew clean build bintrayUpload -PbintrayUser=sfsheng0322 -PbintrayKey=$BINTRAY_TOKEN -PdryRun=false"
-- fir p Sample/outputs/Gank.IO.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
+- fir p Sample/release/MarqueeView.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
 
 notifications:
   email:
