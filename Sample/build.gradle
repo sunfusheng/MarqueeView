@@ -45,7 +45,7 @@ android {
     }
 }
 
-def localSourceEnabled = true
+def localSourceEnabled = false
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

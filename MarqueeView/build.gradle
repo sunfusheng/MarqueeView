@@ -18,7 +18,7 @@ dependencies {
 publish {
     userOrg = 'sfsheng0322'
     groupId = 'com.sunfusheng'
-    artifactId = 'MarqueeView'
+    artifactId = 'marqueeview'
     publishVersion = rootProject.versionName
     desc = 'A custom view for vertical or horizontal flip announcement.'
     website = 'https://github.com/sunfusheng/MarqueeView'
