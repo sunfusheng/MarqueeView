@@ -9,7 +9,7 @@ android:
   - tools
   - build-tools-28.0.3
   - android-28
-  - sys-img-armeabi-v7a-android-27
+  - sys-img-armeabi-v7a-android-28
   - extra-android-support
   - extra-android-m2repository
   - extra-google-m2repository
@@ -46,7 +46,7 @@ deploy:
   provider: releases
   api_key:
     secure: BYgbTvgpuAcfbsRlU3zaGOddULelZdWYb2+7R7/2XnipLUd9MLp0QUyKSQ81LAlrvYOsH9UMP0DQu9OIzjcGsfP3Z9NDkgQjZZ6v3LNeiMcDlgCZy4oMAtk8EzvpvtzbXSGQ4T5RGgCy5d+dSQwpbTwhxo5vn6ad0MmZFxoZ8D+6DX52tMkgLdxDe+LWcGOowkXw88DTZKz5KqO0KcLsqowwL2/h0uNl3V1d72dEyxU7xSqNXctBua+DOyMVu9y0ZP0vu/tf98saTNCDyxSmZqLZ/Mq2iCdeX28C44m0+zKAds5UJFGxrcGJTbtW66visYkNrQuRrOoCHmyRZG3nGPiTKYNoxSZbQH00PJOlCrVSltQrhf4u/gHhB10KOgnK60OQRxj5ffMgGqJT0BTryiU4yqvw3KESElMWwdPni/VSZ0zEr9v5/WxhY2W9ZibJvbYDh5KjUP93B7CXw+9EjIW39OMmyTWV4KEX1ng5JXM0lykED+jKgyDeVUwyrZTxzOjxvh3oluv8KfnoHMggoUTQsLmYNp02gm+fS+eYLMMrp6Tu3SNtnm5lYuAav/pCr6+vQRwGC9NEWVHJhRc6IIVyjRjbXz/FwX5VtmVmgzWovL2aVDYWB+P5of80ymcD36GgsXO0ZdYGxTUky2+rQVza9yqniygjK0FPfcA/rfc=
-  file: Sample/outputs/MarqueeView.apk
+  file: Sample/release/MarqueeView.apk
   skip_cleanup: true
   on:
     repo: sunfusheng/MarqueeView
