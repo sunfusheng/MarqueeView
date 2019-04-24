@@ -1,2 +1,2 @@
-include ':MarqueeView',
-        ':Sample'
+include ':marqueeview',
+        ':app'

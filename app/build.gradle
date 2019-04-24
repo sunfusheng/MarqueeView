@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+Properties signingProperties = new Properties()
+signingProperties.load(new FileInputStream(file("../signings/signing.properties")))
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION
+    defaultConfig {
+        applicationId "com.sunfusheng.marqueeview.demo"
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        multiDexEnabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(signingProperties['KEYSTORE_FILEPATH'])
+            storePassword signingProperties['STORE_PASSWORD']
+            keyAlias signingProperties['KEY_ALIAS']
+            keyPassword signingProperties['KEY_PASSWORD']
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "MarqueeView.apk"
+                }
+            }
+        }
+    }
+}
+
+def localSourceEnabled = true
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:' + SUPPORT_LIBRARY_VERSION
+    implementation 'com.android.support:design:' + SUPPORT_LIBRARY_VERSION
+    implementation 'com.android.support:recyclerview-v7:' + SUPPORT_LIBRARY_VERSION
+
+    compile 'com.sunfusheng:FirUpdater:1.1.1'
+
+    if (localSourceEnabled) {
+        implementation project(':marqueeview')
+    } else {
+        implementation 'com.sunfusheng:marqueeview:' + VERSION_NAME
+    }
+}
