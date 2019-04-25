@@ -126,21 +126,21 @@ public class MarqueeView<T> extends ViewFlipper {
     /**
      * 根据字符串，启动翻页公告
      *
-     * @param notice 字符串
+     * @param message 字符串
      */
-    public void startWithText(String notice) {
-        startWithText(notice, inAnimResId, outAnimResId);
+    public void startWithText(String message) {
+        startWithText(message, inAnimResId, outAnimResId);
     }
 
     /**
      * 根据字符串，启动翻页公告
      *
-     * @param notice       字符串
+     * @param message      字符串
      * @param inAnimResId  进入动画的resID
      * @param outAnimResID 离开动画的resID
      */
-    public void startWithText(final String notice, final @AnimRes int inAnimResId, final @AnimRes int outAnimResID) {
-        if (TextUtils.isEmpty(notice)) return;
+    public void startWithText(final String message, final @AnimRes int inAnimResId, final @AnimRes int outAnimResID) {
+        if (TextUtils.isEmpty(message)) return;
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -149,7 +149,7 @@ public class MarqueeView<T> extends ViewFlipper {
                 } else {
                     getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 }
-                startWithFixedWidth(notice, inAnimResId, outAnimResID);
+                startWithFixedWidth(message, inAnimResId, outAnimResID);
             }
         });
     }
@@ -157,10 +157,10 @@ public class MarqueeView<T> extends ViewFlipper {
     /**
      * 根据字符串和宽度，启动翻页公告
      *
-     * @param notice 字符串
+     * @param message 字符串
      */
-    private void startWithFixedWidth(String notice, @AnimRes int inAnimResId, @AnimRes int outAnimResID) {
-        int noticeLength = notice.length();
+    private void startWithFixedWidth(String message, @AnimRes int inAnimResId, @AnimRes int outAnimResID) {
+        int messageLength = message.length();
         int width = Utils.px2dip(getContext(), getWidth());
         if (width == 0) {
             throw new RuntimeException("Please set the width of MarqueeView !");
@@ -168,18 +168,20 @@ public class MarqueeView<T> extends ViewFlipper {
         int limit = width / textSize;
         List list = new ArrayList();
 
-        if (noticeLength <= limit) {
-            list.add(notice);
+        if (messageLength <= limit) {
+            list.add(message);
         } else {
-            int size = noticeLength / limit + (noticeLength % limit != 0 ? 1 : 0);
+            int size = messageLength / limit + (messageLength % limit != 0 ? 1 : 0);
             for (int i = 0; i < size; i++) {
                 int startIndex = i * limit;
-                int endIndex = ((i + 1) * limit >= noticeLength ? noticeLength : (i + 1) * limit);
-                list.add(notice.substring(startIndex, endIndex));
+                int endIndex = ((i + 1) * limit >= messageLength ? messageLength : (i + 1) * limit);
+                list.add(message.substring(startIndex, endIndex));
             }
         }
 
-        if (messages == null) messages = new ArrayList<>();
+        if (messages == null) {
+            messages = new ArrayList<>();
+        }
         messages.clear();
         messages.addAll(list);
         postStart(inAnimResId, outAnimResID);
@@ -197,7 +199,7 @@ public class MarqueeView<T> extends ViewFlipper {
     /**
      * 根据字符串列表，启动翻页公告
      *
-     * @param messages      字符串列表
+     * @param messages     字符串列表
      * @param inAnimResId  进入动画的resID
      * @param outAnimResID 离开动画的resID
      */

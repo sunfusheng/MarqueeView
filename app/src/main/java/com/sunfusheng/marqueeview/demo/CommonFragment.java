@@ -63,13 +63,16 @@ public class CommonFragment extends Fragment {
         marqueeView2.startWithText(getString(R.string.marquee_text));
 
         marqueeView3.startWithText(getString(R.string.marquee_texts));
+        marqueeView3.setOnItemClickListener((position, textView) -> {
+            CharSequence model = (CharSequence) marqueeView3.getMessages().get(position);
+            Toast.makeText(getContext(), model, Toast.LENGTH_SHORT).show();
+        });
 
         List<CustomModel> models = new ArrayList<>();
         models.add(new CustomModel(10000, "增加了新功能：", "设置自定义的Model数据类型"));
         models.add(new CustomModel(10001, "GitHub：sunfusheng", "新浪微博：@孙福生微博"));
         models.add(new CustomModel(10002, "MarqueeView开源项目", "个人博客：sunfusheng.com"));
         marqueeView4.startWithList(models);
-
         marqueeView4.setOnItemClickListener((position, textView) -> {
             CustomModel model = (CustomModel) marqueeView4.getMessages().get(position);
             Toast.makeText(getContext(), "ID:" + model.id, Toast.LENGTH_SHORT).show();
