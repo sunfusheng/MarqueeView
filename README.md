@@ -38,29 +38,29 @@
         app:mvSingleLine="true"
         app:mvFont="@font/huawenxinwei"/>
 
-#### 设置字符串列表数据
+#### 设置字符串列表数据或自定义的数据模型
 
     MarqueeView marqueeView = (MarqueeView) findViewById(R.id.marqueeView);
 
-    List<String> info = new ArrayList<>();
-    info.add("1. 大家好，我是孙福生。");
-    info.add("2. 欢迎大家关注我哦！");
-    info.add("3. GitHub帐号：sunfusheng");
-    info.add("4. 新浪微博：孙福生微博");
-    info.add("5. 个人博客：sunfusheng.com");
-    info.add("6. 微信公众号：孙福生");
-    marqueeView.startWithList(info);
+    List<String/CustomModel> messages = new ArrayList<>();
+    messages.add("1. 大家好，我是孙福生。");
+    messages.add("2. 欢迎大家关注我哦！");
+    messages.add("3. GitHub帐号：sunfusheng");
+    messages.add("4. 新浪微博：孙福生微博");
+    messages.add("5. 个人博客：sunfusheng.com");
+    messages.add("6. 微信公众号：孙福生");
+    marqueeView.startWithList(messages);
     
     // 在代码里设置自己的动画
-    marqueeView.startWithList(info, R.anim.anim_bottom_in, R.anim.anim_top_out);
+    marqueeView.startWithList(messages, R.anim.anim_bottom_in, R.anim.anim_top_out);
 
 #### 设置字符串数据
 
-    String notice = "心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！";
-    marqueeView.startWithText(notice);
+    String message = "心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！";
+    marqueeView.startWithText(message);
     
     // 在代码里设置自己的动画
-    marqueeView.startWithText(notice, R.anim.anim_bottom_in, R.anim.anim_top_out);
+    marqueeView.startWithText(message, R.anim.anim_bottom_in, R.anim.anim_top_out);
 
 #### 设置事件监听
 
