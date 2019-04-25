@@ -25,13 +25,13 @@ import java.util.List;
 /**
  * Created by sunfusheng on 16/5/31.
  */
-public class MarqueeView extends ViewFlipper {
+public class MarqueeView<T> extends ViewFlipper {
 
     private int interval = 3000;
     private boolean hasSetAnimDuration = false;
     private int animDuration = 1000;
     private int textSize = 14;
-    private int textColor = 0xffffffff;
+    private int textColor = 0xff000000;
     private boolean singleLine = false;
 
     private int gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
@@ -53,7 +53,7 @@ public class MarqueeView extends ViewFlipper {
     private int outAnimResId = R.anim.anim_top_out;
 
     private int position;
-    private List<? extends CharSequence> notices = new ArrayList<>();
+    private List<T> messages = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
 
     public MarqueeView(Context context) {
@@ -179,31 +179,31 @@ public class MarqueeView extends ViewFlipper {
             }
         }
 
-        if (notices == null) notices = new ArrayList<>();
-        notices.clear();
-        notices.addAll(list);
+        if (messages == null) messages = new ArrayList<>();
+        messages.clear();
+        messages.addAll(list);
         postStart(inAnimResId, outAnimResID);
     }
 
     /**
      * 根据字符串列表，启动翻页公告
      *
-     * @param notices 字符串列表
+     * @param messages 字符串列表
      */
-    public void startWithList(List<? extends CharSequence> notices) {
-        startWithList(notices, inAnimResId, outAnimResId);
+    public void startWithList(List<T> messages) {
+        startWithList(messages, inAnimResId, outAnimResId);
     }
 
     /**
      * 根据字符串列表，启动翻页公告
      *
-     * @param notices      字符串列表
+     * @param messages      字符串列表
      * @param inAnimResId  进入动画的resID
      * @param outAnimResID 离开动画的resID
      */
-    public void startWithList(List<? extends CharSequence> notices, @AnimRes int inAnimResId, @AnimRes int outAnimResID) {
-        if (Utils.isEmpty(notices)) return;
-        setNotices(notices);
+    public void startWithList(List<T> messages, @AnimRes int inAnimResId, @AnimRes int outAnimResID) {
+        if (Utils.isEmpty(messages)) return;
+        setMessages(messages);
         postStart(inAnimResId, outAnimResID);
     }
 
@@ -222,13 +222,13 @@ public class MarqueeView extends ViewFlipper {
         removeAllViews();
         clearAnimation();
         // 检测数据源
-        if (notices == null || notices.isEmpty()) {
-            throw new RuntimeException("The data source cannot be empty!");
+        if (messages == null || messages.isEmpty()) {
+            throw new RuntimeException("The messages cannot be empty!");
         }
         position = 0;
-        addView(createTextView(notices.get(position)));
+        addView(createTextView(messages.get(position)));
 
-        if (notices.size() > 1) {
+        if (messages.size() > 1) {
             setInAndOutAnimation(inAnimResId, outAnimResID);
             startFlipping();
         }
@@ -246,10 +246,10 @@ public class MarqueeView extends ViewFlipper {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     position++;
-                    if (position >= notices.size()) {
+                    if (position >= messages.size()) {
                         position = 0;
                     }
-                    View view = createTextView(notices.get(position));
+                    View view = createTextView(messages.get(position));
                     if (view.getParent() == null) {
                         addView(view);
                     }
@@ -263,7 +263,7 @@ public class MarqueeView extends ViewFlipper {
         }
     }
 
-    private TextView createTextView(CharSequence text) {
+    private TextView createTextView(T marqueeItem) {
         TextView textView = (TextView) getChildAt((getDisplayedChild() + 1) % 3);
         if (textView == null) {
             textView = new TextView(getContext());
@@ -288,7 +288,13 @@ public class MarqueeView extends ViewFlipper {
                 }
             });
         }
-        textView.setText(text);
+        CharSequence message = "";
+        if (marqueeItem instanceof CharSequence) {
+            message = (CharSequence) marqueeItem;
+        } else if (marqueeItem instanceof IMarqueeItem) {
+            message = ((IMarqueeItem) marqueeItem).marqueeMessage();
+        }
+        textView.setText(message);
         textView.setTag(position);
         return textView;
     }
@@ -297,12 +303,12 @@ public class MarqueeView extends ViewFlipper {
         return (int) getCurrentView().getTag();
     }
 
-    public List<? extends CharSequence> getNotices() {
-        return notices;
+    public List<T> getMessages() {
+        return messages;
     }
 
-    public void setNotices(List<? extends CharSequence> notices) {
-        this.notices = notices;
+    public void setMessages(List<T> messages) {
+        this.messages = messages;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

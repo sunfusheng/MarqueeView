@@ -52,6 +52,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:' + SUPPORT_LIBRARY_VERSION
     implementation 'com.android.support:design:' + SUPPORT_LIBRARY_VERSION
     implementation 'com.android.support:recyclerview-v7:' + SUPPORT_LIBRARY_VERSION
+    implementation 'com.android.support:cardview-v7:' + SUPPORT_LIBRARY_VERSION
 
     compile 'com.sunfusheng:FirUpdater:1.1.1'
 

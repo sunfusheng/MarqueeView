@@ -12,10 +12,12 @@ import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.sunfusheng.marqueeview.demo.R;
+import com.sunfusheng.marqueeview.demo.model.MarqueeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +67,16 @@ public class CommonFragment extends Fragment {
 
         marqueeView3.startWithText(getString(R.string.marquee_texts));
 
-        marqueeView4.startWithText(getString(R.string.marquee_texts));
+        List<MarqueeModel> models = new ArrayList<>();
+        models.add(new MarqueeModel(10000, "增加了新功能：", "显示自己的Model数据"));
+        models.add(new MarqueeModel(10001, "GitHub：sunfusheng", "新浪微博：@孙福生微博"));
+        models.add(new MarqueeModel(10002, "MarqueeView开源项目", "个人博客：sunfusheng.com"));
+        marqueeView4.startWithList(models);
+
+        marqueeView4.setOnItemClickListener((position, textView) -> {
+            MarqueeModel model = (MarqueeModel) marqueeView4.getMessages().get(position);
+            Toast.makeText(getContext(), "ID:" + model.id, Toast.LENGTH_SHORT).show();
+        });
 
         return view;
     }
