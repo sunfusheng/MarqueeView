@@ -38,17 +38,28 @@
         app:mvSingleLine="true"
         app:mvFont="@font/huawenxinwei"/>
 
-#### 设置字符串列表数据或自定义的数据模型
+#### 设置字符串列表数据，或者设置自定义的Model数据类型
 
     MarqueeView marqueeView = (MarqueeView) findViewById(R.id.marqueeView);
 
-    List<String/CustomModel> messages = new ArrayList<>();
+    List<String> messages = new ArrayList<>();
     messages.add("1. 大家好，我是孙福生。");
     messages.add("2. 欢迎大家关注我哦！");
     messages.add("3. GitHub帐号：sunfusheng");
     messages.add("4. 新浪微博：孙福生微博");
     messages.add("5. 个人博客：sunfusheng.com");
     messages.add("6. 微信公众号：孙福生");
+    marqueeView.startWithList(messages);
+
+    // 或者设置自定义的Model数据类型
+    public class CustomModel implements IMarqueeItem {
+        @Override
+        public CharSequence marqueeMessage() {
+            return "...";
+        }
+    }
+
+    List<CustomModel> messages = new ArrayList<>();
     marqueeView.startWithList(messages);
     
     // 在代码里设置自己的动画
