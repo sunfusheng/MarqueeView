@@ -2,7 +2,6 @@ package com.sunfusheng.marqueeview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.AnimRes;
@@ -10,7 +9,6 @@ import android.support.annotation.FontRes;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -66,7 +64,8 @@ public class MarqueeView<T> extends ViewFlipper {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MarqueeViewStyle, defStyleAttr, 0);
+        TypedArray typedArray =
+                context.obtainStyledAttributes(attrs, R.styleable.MarqueeViewStyle, defStyleAttr, 0);
 
         interval = typedArray.getInteger(R.styleable.MarqueeViewStyle_mvInterval, interval);
         hasSetAnimDuration = typedArray.hasValue(R.styleable.MarqueeViewStyle_mvAnimDuration);
@@ -139,7 +138,8 @@ public class MarqueeView<T> extends ViewFlipper {
      * @param inAnimResId  进入动画的resID
      * @param outAnimResID 离开动画的resID
      */
-    public void startWithText(final String message, final @AnimRes int inAnimResId, final @AnimRes int outAnimResID) {
+    public void startWithText(final String message, final @AnimRes int inAnimResId,
+                              final @AnimRes int outAnimResID) {
         if (TextUtils.isEmpty(message)) return;
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -159,7 +159,8 @@ public class MarqueeView<T> extends ViewFlipper {
      *
      * @param message 字符串
      */
-    private void startWithFixedWidth(String message, @AnimRes int inAnimResId, @AnimRes int outAnimResID) {
+    private void startWithFixedWidth(String message, @AnimRes int inAnimResId,
+                                     @AnimRes int outAnimResID) {
         int messageLength = message.length();
         int width = Utils.px2dip(getContext(), getWidth());
         if (width == 0) {
