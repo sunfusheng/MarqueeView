@@ -50,7 +50,6 @@ public class MarqueeView<T> extends ViewFlipper {
     @AnimRes
     private int outAnimResId = R.anim.anim_top_out;
 
-    private int position;
     private List<T> messages = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
 
@@ -228,8 +227,7 @@ public class MarqueeView<T> extends ViewFlipper {
         if (messages == null || messages.isEmpty()) {
             throw new RuntimeException("The messages cannot be empty!");
         }
-        position = 0;
-        addView(createTextView(messages.get(position)));
+        addView(createTextView(messages.get(0), 0));
 
         if (messages.size() > 1) {
             setInAndOutAnimation(inAnimResId, outAnimResID);
@@ -248,11 +246,14 @@ public class MarqueeView<T> extends ViewFlipper {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    position++;
-                    if (position >= messages.size()) {
+                    // 获取当前View对应的下标
+                    int position = getPosition();
+                    // 对下标作越界判断
+                    if (++position >= messages.size()) {
                         position = 0;
                     }
-                    View view = createTextView(messages.get(position));
+                    // 将新的下标值保存到View中
+                    View view = createTextView(messages.get(position), position);
                     if (view.getParent() == null) {
                         addView(view);
                     }
@@ -266,7 +267,7 @@ public class MarqueeView<T> extends ViewFlipper {
         }
     }
 
-    private TextView createTextView(T marqueeItem) {
+    private TextView createTextView(T marqueeItem, int realPosition) {
         TextView textView = (TextView) getChildAt((getDisplayedChild() + 1) % 3);
         if (textView == null) {
             textView = new TextView(getContext());
@@ -298,7 +299,7 @@ public class MarqueeView<T> extends ViewFlipper {
             message = ((IMarqueeItem) marqueeItem).marqueeMessage();
         }
         textView.setText(message);
-        textView.setTag(position);
+        textView.setTag(realPosition);
         return textView;
     }
 
